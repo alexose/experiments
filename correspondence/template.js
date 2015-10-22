@@ -9,37 +9,39 @@ if (process.argv.length == 3){
 }
 
 var Handlebars = require('handlebars')
-  , fs = require('fs');
+  , fs = require('fs')
+  , local = require('path')
+  , main;
 
 // Scan directory for files and load everything besides index.html as a partial
-walk(directory, function(path, stat) {
+var files = fs.readdirSync(directory);
 
+files.forEach(function(path){
+  
   // Get filename
   var arr = path.split('/').pop().split('.')
     , name = arr[0]
     , ext = arr[1];
+    
+  // Read file
+  var str = fs.readFileSync(local.join(directory, path), 'utf-8');
 
-  if (name !== 'index'){
-    var str = fs.readFile(path);
-    Handlebars.registerHelper(name, str);
-    console.log('Loaded ' + name + ' as a partial');
-  }
+  if (name == 'index'){
+    main = Handlebars.compile(str);
+  } else {
+    Handlebars.registerPartial(name, str);
+    // console.log('Loaded ' + name + ' as a partial');
+  } 
 });
 
-// Recursive directory scan helper function
-function walk(current, callback){
+// Dummy data
+var data = {
+  test : 'Testing 123',
+  child : true
+};
 
-  var local = require('path');
+// Render template
+var output = main(data);
 
-  fs.readdirSync(current).forEach(function(name){
+console.log(output);
 
-    var path = local.join(current, name)
-      , stat = fs.statSync(path);
-
-    if (stat.isFile()) {
-      callback(path, stat);
-    } else if (stat.isDirectory()) {
-      walk(path, callback);
-    }
-  });
-}
