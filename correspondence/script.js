@@ -3,6 +3,7 @@
 // To build it, just type:
 // browserify -t brfs script.js > assets/js/script.js
 
+var fs = require('fs');
 var $ = require('jquery');
 var Handlebars = require('handlebars');
 
@@ -11,15 +12,16 @@ var ace = require('brace');
 require('brace/mode/javascript');
 require('brace/theme/monokai');
 
-var code = ace.edit('left');
-code.getSession().setMode('ace/mode/html');
-// editor.setTheme('ace/theme/monokai');
+var code = ace.edit('left').getSession();
 
-var data = ace.edit('data');
-data.getSession().setMode('ace/mode/json');
+code.setMode('ace/mode/html')
+code.setValue(
+  fs.readFileSync(__dirname + '/example.html', 'utf8')
+);
 
-// Load example template
-var fs = require('fs');
-var example = fs.readFileSync(__dirname + '/example.html', 'utf8');
+var data = ace.edit('data').getSession();
 
-code.session.setValue(example);
+data.setMode('ace/mode/json')
+data.setValue(
+  fs.readFileSync(__dirname + '/data.json', 'utf8')
+);
