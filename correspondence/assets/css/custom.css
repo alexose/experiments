@@ -2,7 +2,17 @@
   padding-top: 160px;
 }
 
-.box{
-  border: 2px solid #ddd;
+#main .box{
   min-height: 400px;
 }
+
+#data{
+  margin-top: 20px;
+  min-height: 130px;
+}
+
+.box{
+  border: 2px solid #ddd;
+}
+  
+
