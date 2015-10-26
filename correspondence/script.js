@@ -23,16 +23,43 @@ var ace = require('brace');
 require('brace/mode/html');
 require('brace/mode/json');
 
-var code = ace.edit('left');
+var code = ace.edit('left'),
+    cses = code.getSession();
+
 code.setShowPrintMargin(false);
-code.getSession().setMode('ace/mode/html');
-code.getSession().setValue(
+cses.setMode('ace/mode/html');
+cses.setValue(
   fs.readFileSync(__dirname + '/example.html', 'utf8')
 );
+cses.on('change', update);
 
-var data = ace.edit('data');
+var data = ace.edit('data'),
+    dses = data.getSession();
+
 data.setShowPrintMargin(false);
-data.getSession().setMode('ace/mode/json');
-data.getSession().setValue(
+dses.setMode('ace/mode/json');
+dses.setValue(
   fs.readFileSync(__dirname + '/data.json', 'utf8')
 );
+dses.on('change', update);
+
+function update(evt, session){
+
+  var str = cses.getValue(), 
+      json = cses.getValue(),
+      obj;
+
+  try {
+    obj = JSON.parse(json);
+  } catch(e){
+    console.log('oh no!');
+    return;
+  }
+
+  // Compile and display
+  var template = Handlebars.compile(str),
+      result = template(json);
+
+  $('#right').html(result);
+}
+update();
