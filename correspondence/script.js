@@ -20,14 +20,14 @@ handle.click(function(){
 
 // Start ACE editor
 var ace = require('brace');
-require('brace/mode/html');
+require('brace/mode/handlebars');
 require('brace/mode/json');
 
 var code = ace.edit('left'),
     cses = code.getSession();
 
 code.setShowPrintMargin(false);
-cses.setMode('ace/mode/html');
+cses.setMode('ace/mode/handlebars');
 cses.setValue(
   fs.readFileSync(__dirname + '/example.html', 'utf8')
 );

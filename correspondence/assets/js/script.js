@@ -21049,6 +21049,122 @@ oop.inherits(Mode, TextMode);
 exports.Mode = Mode;
 });
 
+ace.define("ace/mode/handlebars_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/html_highlight_rules"], function(acequire, exports, module) {
+"use strict";
+
+var oop = acequire("../lib/oop");
+var HtmlHighlightRules = acequire("./html_highlight_rules").HtmlHighlightRules;
+
+function pop2(currentState, stack) {
+    stack.splice(0, 3);
+    return stack.shift() || "start";
+}
+var HandlebarsHighlightRules = function() {
+    HtmlHighlightRules.call(this);
+    var hbs = {
+        regex : "(?={{)",
+        push : "handlebars"
+    };
+    for (var key in this.$rules) {
+        this.$rules[key].unshift(hbs);
+    }
+    this.$rules.handlebars = [{
+        token : "comment.start",
+        regex : "{{!--",
+        push : [{
+            token : "comment.end",
+            regex : "--}}",
+            next : pop2
+        }, {
+            defaultToken : "comment"
+        }]
+    }, {
+        token : "comment.start",
+        regex : "{{!",
+        push : [{
+            token : "comment.end",
+            regex : "}}",
+            next : pop2
+        }, {
+            defaultToken : "comment"
+        }]
+    }, {
+        token : "support.function", // unescaped variable
+        regex : "{{{",
+        push : [{
+            token : "support.function",
+            regex : "}}}",
+            next : pop2
+        }, {
+            token : "variable.parameter",
+            regex : "[a-zA-Z_$][a-zA-Z0-9_$]*"
+        }]
+    }, {
+        token : "storage.type.start", // begin section
+        regex : "{{[#\\^/&]?",
+        push : [{
+            token : "storage.type.end",
+            regex : "}}",
+            next : pop2
+        }, {
+            token : "variable.parameter",
+            regex : "[a-zA-Z_$][a-zA-Z0-9_$]*"
+        }]
+    }];
+
+    this.normalizeRules();
+};
+
+oop.inherits(HandlebarsHighlightRules, HtmlHighlightRules);
+
+exports.HandlebarsHighlightRules = HandlebarsHighlightRules;
+});
+
+ace.define("ace/mode/behaviour/html",["require","exports","module","ace/lib/oop","ace/mode/behaviour/xml"], function(acequire, exports, module) {
+"use strict";
+
+var oop = acequire("../../lib/oop");
+var XmlBehaviour = acequire("../behaviour/xml").XmlBehaviour;
+
+var HtmlBehaviour = function () {
+
+    XmlBehaviour.call(this);
+
+};
+
+oop.inherits(HtmlBehaviour, XmlBehaviour);
+
+exports.HtmlBehaviour = HtmlBehaviour;
+});
+
+ace.define("ace/mode/handlebars",["require","exports","module","ace/lib/oop","ace/mode/html","ace/mode/handlebars_highlight_rules","ace/mode/behaviour/html","ace/mode/folding/html"], function(acequire, exports, module) {
+  "use strict";
+
+var oop = acequire("../lib/oop");
+var HtmlMode = acequire("./html").Mode;
+var HandlebarsHighlightRules = acequire("./handlebars_highlight_rules").HandlebarsHighlightRules;
+var HtmlBehaviour = acequire("./behaviour/html").HtmlBehaviour;
+var HtmlFoldMode = acequire("./folding/html").FoldMode;
+
+var Mode = function() {
+    HtmlMode.call(this);
+    this.HighlightRules = HandlebarsHighlightRules;
+    this.$behaviour = new HtmlBehaviour();
+
+    
+    this.foldingRules = new HtmlFoldMode();
+};
+
+oop.inherits(Mode, HtmlMode);
+
+(function() {
+    this.blockComment = {start: "{!--", end: "--}"};
+    this.$id = "ace/mode/handlebars";
+}).call(Mode.prototype);
+
+exports.Mode = Mode;
+});
+
 },{"../worker/css":8,"../worker/html":9,"../worker/javascript":10}],6:[function(require,module,exports){
 ace.define("ace/mode/json_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(acequire, exports, module) {
 "use strict";
@@ -38910,14 +39026,14 @@ handle.click(function(){
 
 // Start ACE editor
 var ace = require('brace');
-require('brace/mode/html');
+require('brace/mode/handlebars');
 require('brace/mode/json');
 
 var code = ace.edit('left'),
     cses = code.getSession();
 
 code.setShowPrintMargin(false);
-cses.setMode('ace/mode/html');
+cses.setMode('ace/mode/handlebars');
 cses.setValue(
   "<!-- Main Template -->\n{{>state_letterhead}}\n{{>standard_header}}\n\n{{address}}\n\n{{>sno_language}}\n{{>spanish_language}}\n\n<hr />\n<p>We are the office that makes disability decisions for the Social Security Administration.  We are writing to tell you that we are reviewing your/{clmt_full_name}�s disability claim.</p>\n\n<h3>How We Decide Eligibility For Disability Benefits</h3>\n\n<p>To be eligible for disability benefits, you/he/she must have a medical condition(s) that:</p>\n\n<!-- Fancy if statement -->\n<ul>\n{{#if child_case}}\n  <li>Causes marked and severe functional limitations, and</li>\n  <li>Has lasted or is expected to last for at least 12 months in a row, or is expected to result in death</li>\n{{else}}\n  <li>Keeps you/him/her from doing any type of work, and</li>\n  <li>Has lasted or is expected to last for at least 12 months in a row, or is expected to result in death</li>\n{{/if}}\n</ul>\n\n<h3>What We Will Do</h3>\n\n<p>We will review the medical and other information we have.  If we need more information to decide whether you/he/she are/is disabled, we may arrange an exam or test which we will pay for.  We may also reimburse some travel expenses to the exam or test site based on a set rate.</p>\n\n<p>What You Need To Do</p>\n\n<p>Please respond quickly to any letters or forms that you receive from us.  Let us know right away if any of the following occur while we process this claim:</p>\n\n<ul>\n<li>New doctor or hospital visit</li>\n<li>Additional tests, therapy, or surgery</li>\n<li>Changes in dosage, addition, or discontinuation of medication(s),</li>\n{{#if adult_case}}\n<li>Begin or return to work,</li>\n{{/if}}\n<li>New conditions develop<,/li>\n<li>Additional current or past medical, educational, or mental health sources not listed on the application.</li>\n</ul>\n\n<p>You must report to SSA right away any changes to address, telephone number(s) or any other personal information.</p>\n\n<h3>If You Have Questions</h3>\n\n<p>If you have any questions or wish to provide more information, please call us at the number(s) shown below {local_office_hours}.  When you call or leave a message, please provide the Case ID:  {case_id}, your name/your name, his/her name, and a call back number.</p> \n\n{{>interpreter_language}}\n{{>fraud_language}}\n\n{{>standard_signature_block}}\n{{>enclosure}}\n{{>multi_language_insert}}\n{{>standard_cc_block}}\n\n<!-- Partials! -->\n{{#*inline \"state_letterhead\"}}\n  <h1>State letterhead</h1>\n{{/inline}}\n\n{{#*inline \"standard_header\"}}\n  <h2>Standard Header</h2>\n{{/inline}}\n\n{{#*inline \"sno_language\"}}\n  <p>Special stuff about SNO goes here!</p>\n{{/inline}}\n\n{{#*inline \"spanish_language\"}}\n  <p>No habla espagnol sorry</p>\n{{/inline}}\n\n\n{{#*inline \"interpreter_language\"}}\n{{/inline}}\n{{#*inline \"fraud_language\"}}\n{{/inline}}\n\n{{#*inline \"standard_signature_block\"}}\n{{/inline}}\n{{#*inline \"enclosure\"}}\n{{/inline}}\n{{#*inline \"multi_language_insert\"}}\n{{/inline}}\n{{#*inline \"standard_cc_block\"}}\n{{/inline}}\n"
 );
@@ -38960,4 +39076,4 @@ function update(evt, session){
 }
 update();
 
-},{"brace":4,"brace/mode/html":5,"brace/mode/json":6,"handlebars":41,"jquery":54}]},{},[55]);
+},{"brace":4,"brace/mode/handlebars":5,"brace/mode/json":6,"handlebars":41,"jquery":54}]},{},[55]);
