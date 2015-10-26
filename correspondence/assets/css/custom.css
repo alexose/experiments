@@ -19,7 +19,8 @@ html, body{
 }
 
 #main #right.box{
-  padding: 40px; 
+  padding: 40px;
+  overflow: scroll;
 }
 
 .box {

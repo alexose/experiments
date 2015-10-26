@@ -60,8 +60,8 @@ function update(evt, session){
   var result;
 
   try {
-  var template = Handlebars.compile(str);
-  result = template(json);
+    var template = Handlebars.compile(str);
+    result = template(obj);
   } catch(e){
     result = '<div class="usa-alert usa-alert-error" role="alert"><div class="usa-alert-body"><h3 class="usa-alert-heading">Error:</h3> <p class="usa-alert-text">' + e.toString() + '</p></div></div>';
   }
