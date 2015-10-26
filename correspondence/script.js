@@ -9,19 +9,19 @@ var Handlebars = require('handlebars');
 
 // Start ACE editor
 var ace = require('brace');
-require('brace/mode/javascript');
-require('brace/theme/monokai');
+require('brace/mode/html');
+require('brace/mode/json');
 
-var code = ace.edit('left').getSession();
-
-code.setMode('ace/mode/html')
-code.setValue(
+var code = ace.edit('left');
+code.setShowPrintMargin(false);
+code.getSession().setMode('ace/mode/html');
+code.getSession().setValue(
   fs.readFileSync(__dirname + '/example.html', 'utf8')
 );
 
-var data = ace.edit('data').getSession();
-
-data.setMode('ace/mode/json')
-data.setValue(
+var data = ace.edit('data');
+data.setShowPrintMargin(false);
+data.getSession().setMode('ace/mode/json');
+data.getSession().setValue(
   fs.readFileSync(__dirname + '/data.json', 'utf8')
 );

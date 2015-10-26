@@ -12,6 +12,7 @@
     "brace": "^0.5.1",
     "brfs": "^1.4.1",
     "handlebars": "^4.0.3",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "json-scrape": "^1.0.0"
   }
 }

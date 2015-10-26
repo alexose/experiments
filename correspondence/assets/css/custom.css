@@ -1,9 +1,19 @@
 #main{
-  padding-top: 160px;
+  padding-top: 125px;
 }
 
 #main .box{
   min-height: 400px;
+  width: 50%;
+  float:left;
+}
+
+#main #left.box{
+  border-right: none;
+}
+
+.box {
+  border: 2px solid #ddd;
 }
 
 #data{
@@ -11,8 +21,11 @@
   min-height: 130px;
 }
 
-.box{
-  border: 2px solid #ddd;
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
 }
-  
 
+.cf:after {
+    clear: both;
+}
