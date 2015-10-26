@@ -18,6 +18,10 @@ html, body{
   border-right: none;
 }
 
+#main #right.box{
+  padding: 40px; 
+}
+
 .box {
   border: 2px solid #ddd;
 }

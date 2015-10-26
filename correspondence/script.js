@@ -46,7 +46,7 @@ dses.on('change', update);
 function update(evt, session){
 
   var str = cses.getValue(), 
-      json = cses.getValue(),
+      json = dses.getValue(),
       obj;
 
   try {
@@ -57,8 +57,14 @@ function update(evt, session){
   }
 
   // Compile and display
-  var template = Handlebars.compile(str),
-      result = template(json);
+  var result;
+
+  try {
+  var template = Handlebars.compile(str);
+  result = template(json);
+  } catch(e){
+    result = '<div class="usa-alert usa-alert-error" role="alert"><div class="usa-alert-body"><h3 class="usa-alert-heading">Error:</h3> <p class="usa-alert-text">' + e.toString() + '</p></div></div>';
+  }
 
   $('#right').html(result);
 }
