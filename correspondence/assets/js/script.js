@@ -38897,6 +38897,16 @@ return jQuery;
 var $ = require('jquery');
 var Handlebars = require('handlebars');
 
+// Set up drawer
+var drawer = $('#drawer'),
+    handle = drawer.find('.handle');
+
+handle.click(function(){
+  var classname = 'expanded';
+  drawer.toggleClass(classname);
+  $(this).animate({ height : drawer.hasClass(classname) ? 400 : 30 });
+});
+
 // Start ACE editor
 var ace = require('brace');
 require('brace/mode/html');

@@ -1,9 +1,15 @@
+html, body{
+  height: 100px;
+  margin: 0;
+}
+
 #main{
-  padding-top: 125px;
+  position: absolute;
+  top: 125px; right:0; left: 0; bottom: 0;
 }
 
 #main .box{
-  min-height: 400px;
+  height: 100%;
   width: 50%;
   float:left;
 }
@@ -16,9 +22,25 @@
   border: 2px solid #ddd;
 }
 
-#data{
-  margin-top: 20px;
-  min-height: 130px;
+#drawer{
+  position: fixed;
+  z-index: 9000;
+  background: #fff;
+  top: auto; right: 0; left: 0; bottom: 0;
+  height: 30px;
+  background: #fff url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIUnC2nKLnT4or00PvyrQwrPzUZshQAOw==) no-repeat center 8px;;
+}
+
+#drawer .handle{
+  position: absolute;
+  top: 0; right: 0; left: 0; bottom: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+#drawer #data{
+  position: absolute;
+  top: 30px; right: 0; left: 0; bottom: 0;
 }
 
 .cf:after {
