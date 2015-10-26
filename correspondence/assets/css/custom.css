@@ -40,7 +40,8 @@ html, body{
 
 #drawer #data{
   position: absolute;
-  top: 30px; right: 0; left: 0; bottom: 0;
+  top: 30px; right: 0; left: 0;
+  height:370px;
 }
 
 .cf:after {

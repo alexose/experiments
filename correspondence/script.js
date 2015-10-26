@@ -13,8 +13,9 @@ var drawer = $('#drawer'),
 
 handle.click(function(){
   var classname = 'expanded';
-  drawer.toggleClass(classname);
-  $(this).animate({ height : drawer.hasClass(classname) ? 400 : 30 });
+  drawer
+    .toggleClass(classname)
+    .animate({ height : drawer.hasClass(classname) ? 400 : 30 });
 });
 
 // Start ACE editor
