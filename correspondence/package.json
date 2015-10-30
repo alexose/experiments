@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "brace": "^0.5.1",
-    "handlebars": "^4.0.3",
+    "brfs": "^1.4.1",
+    "handlebars": "^4.0.4",
     "jquery": "^2.1.4",
     "watchify": "^3.5.0"
   },
