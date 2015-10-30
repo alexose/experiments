@@ -39015,6 +39015,7 @@ var Handlebars = require('handlebars');
 
 // Set up drawer
 var drawer = $('#drawer'),
+    main = $('#main'),
     handle = drawer.find('.handle');
 
 handle.click(function(){
@@ -39022,6 +39023,9 @@ handle.click(function(){
   drawer
     .toggleClass(classname)
     .animate({ height : drawer.hasClass(classname) ? 400 : 30 });
+
+  main
+    .animate({ bottom : drawer.hasClass(classname) ? 400 : 30 });
 });
 
 // Start ACE editor
