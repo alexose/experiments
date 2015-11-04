@@ -1,7 +1,8 @@
-// This script requires browserify!
+// This script requires watchify!
+// Install via "npm install -g watchify"
 //
-// To build it, just type:
-// browserify -t brfs script.js > assets/js/script.js
+// To monitor this file for changes and rebuild automatically, type:
+// watchify -v -t brfs script.js -o assets/js/script.js
 
 var fs = require('fs');
 var $ = require('jquery');
