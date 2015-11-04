@@ -38,6 +38,50 @@ cses.setValue(
 );
 cses.on('change', update);
 
+// Set up tag editor interface
+// via http://stackoverflow.com/questions/20889174
+var handler = function(e){
+  var editor = e.editor,
+      rows = editor.session.doc.getAllLines(),
+      pos = editor.getCursorPosition(),
+      token = getToken(rows,pos);
+
+  if (token){
+    console.log(token);
+  }
+
+  // Cheesy function to see if this a cursor position is actually inside of a handlebars tag 
+  function getToken(lines, pos){
+
+    var row = rows[pos.row],
+        beginning,
+        end,
+        i,
+        c;
+
+    // Move left to find tag beginning
+    for (i=pos.column; i>0; i--){
+      c = row[i-1] + row[i];
+      if (c === '{{'){
+        beginning = i;
+      }
+    }
+    
+    // Move right to find tag end
+    for (i=pos.column; i<row.length; i++){
+      c = row[i-1] + row[i];
+      if (c === '}}'){
+        end = i;
+      }
+    }
+      
+    if (beginning && end){
+      return row.substr(beginning+1, end-3); 
+    } 
+  }
+};
+code.on("click", handler);
+
 var data = ace.edit('data'),
     dses = data.getSession();
 
