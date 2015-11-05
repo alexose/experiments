@@ -50,7 +50,14 @@ var handler = function(e){
 
   if (token){
     var json = dses.getValue();
-    tagPicker(e, token, obj); 
+    tagPicker(e, token.string, obj, function(result){
+      var row = rows[token.row],
+          Range = ace.acequire('ace/range').Range,
+          rng = new Range(token.row, token.beginning + 1, token.row, token.end - 1),
+          doc = editor.session.doc;
+
+      doc.replace(rng, result);
+    }); 
   }
 
   // Cheesy function to see if this a cursor position is actually inside of a handlebars tag 
@@ -79,7 +86,12 @@ var handler = function(e){
     }
       
     if (beginning && end){
-      return row.substr(beginning+1, end-3); 
+      return {
+        beginning : beginning,
+        end: end,
+        row: pos.row,
+        string: row.substr(beginning+1, end-3)
+      };
     } 
   }
 };
