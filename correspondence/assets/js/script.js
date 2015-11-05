@@ -39045,6 +39045,8 @@ cses.setValue(
 cses.on('change', update);
 
 // Set up tag editor interface
+var tagPicker = require('./tag.js');
+
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){
   var editor = e.editor,
@@ -39053,7 +39055,8 @@ var handler = function(e){
       token = getToken(rows,pos);
 
   if (token){
-    console.log(token);
+    var json = dses.getValue();
+    tagPicker(e, token, json); 
   }
 
   // Cheesy function to see if this a cursor position is actually inside of a handlebars tag 
@@ -39125,4 +39128,49 @@ function update(evt, session){
 }
 update();
 
-},{"brace":4,"brace/mode/handlebars":5,"brace/mode/json":6,"handlebars":41,"jquery":54}]},{},[55]);
+},{"./tag.js":56,"brace":4,"brace/mode/handlebars":5,"brace/mode/json":6,"handlebars":41,"jquery":54}],56:[function(require,module,exports){
+/* jshint laxbreak:true */
+
+// Simple interface that allows better variable selection 
+// TODO:  This should be written using React.
+var Handlebars = require('handlebars'),
+    $ = require('jquery');
+
+module.exports = function(e, token, json){
+
+  // Create box from template
+  var template = Handlebars.compile(
+      '<div class="tag-picker">'
+    + '  <input type="search" />'
+    + '  <div class="tag-picker-results">'
+    + '    <ul>'
+    + '      {{#results}}'
+    + '        <li>{{keypath}}</li>'
+    + '      {{/results}}'
+    + '    </ul>'
+    + '  </div>'
+    + '</div>'
+  );
+
+  var obj = search(token, json);
+
+  result = $(template(obj));
+  
+  // Place box at appropriate coordinates
+  result.css({
+      position: 'absolute',
+      'z-index': 1001,
+      left : e.clientX,
+      top : e.clientY
+    });
+
+  // Append to screen
+  result.appendTo('body');
+  
+};
+
+function search(token, json){
+  return [];
+}
+
+},{"handlebars":41,"jquery":54}]},{},[55]);

@@ -39,6 +39,8 @@ cses.setValue(
 cses.on('change', update);
 
 // Set up tag editor interface
+var tagPicker = require('./tag.js');
+
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){
   var editor = e.editor,
@@ -47,7 +49,8 @@ var handler = function(e){
       token = getToken(rows,pos);
 
   if (token){
-    console.log(token);
+    var json = dses.getValue();
+    tagPicker(e, token, json); 
   }
 
   // Cheesy function to see if this a cursor position is actually inside of a handlebars tag 
