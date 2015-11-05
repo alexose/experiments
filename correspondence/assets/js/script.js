@@ -39150,37 +39150,42 @@ module.exports = function(e, token, json){
     + '      </button>'
     + '    </div>'
     + '  </form>'
-    + '  <div class="tag-picker-results">'
-    + '    <ul>'
-    + '      {{#keypaths}}'
-    + '        <li>{{.}}</li>'
-    + '      {{/keypaths}}'
-    + '    </ul>'
-    + '  </div>'
+    + '  <div class="tag-picker-results"></div>'
     + '</div>'
   );
 
-  var obj = { keypaths : search(token, json)};
-
-  result = $(template(obj));
+  var element = $(template()),
+      keypaths = generate(token, json);
   
   // Place box at appropriate coordinates
-  result.css({
+  element.css({
       position: 'absolute',
       'z-index': 1001,
       left : e.clientX,
       top : e.clientY
     });
 
+  // Set up search behavior
+  var input = element.find('input[name="search"]');
+  input.keydown(function(){
+    var results = search(input.val(), keypaths);
+    draw(target, results);
+  });
+
+  // Set up list
+  var target = element.find('.tag-picker-results');
+
+  draw(target, generate(token, json));
+
   // Append to screen
-  result.appendTo('body');
+  element.appendTo('body');
   
   // Handle clickoff
-  result.click(stop);
+  element.click(stop);
   stop(e);
 
   $('body').one('click.tagpicker', function(){
-    result.remove(); 
+    element.remove(); 
   });
   
   function stop(e){
@@ -39188,7 +39193,33 @@ module.exports = function(e, token, json){
   }
 };
 
-function search(token, json){
+// Redraw results
+function draw(target, keypaths){
+  
+  var template = Handlebars.compile(
+      '<ul>'
+    + '  {{#keypaths}}'
+    + '    <li>{{.}}</li>'
+    + '  {{/keypaths}}'
+    + '</ul>'
+  );
+
+  var ul = template({ keypaths : keypaths });
+  target.empty().append(ul);
+}
+
+function search(term, arr){
+  var results = [];
+  for (var i in arr){
+    var keypath = arr[i];
+    if (keypath.indexOf(term) !== -1){
+      results.push(keypath); 
+    }
+  }
+  return results;
+}
+
+function generate(token, json){
 
   // Generate a list of all possible keypaths
   var keypaths = [];
