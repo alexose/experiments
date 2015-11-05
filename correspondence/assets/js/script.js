@@ -39137,7 +39137,7 @@ var Handlebars = require('handlebars'),
     $ = require('jquery');
 
 module.exports = function(e, token, json){
-
+  
   // Create box from template
   var template = Handlebars.compile(
       '<div class="tag-picker">'
@@ -39167,6 +39167,17 @@ module.exports = function(e, token, json){
   // Append to screen
   result.appendTo('body');
   
+  // Handle clickoff
+  result.click(stop);
+  stop(e);
+
+  $('body').one('click.tagpicker', function(){
+    result.remove(); 
+  });
+  
+  function stop(e){
+    e.stopPropagation();
+  }
 };
 
 function search(token, json){
