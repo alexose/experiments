@@ -39056,7 +39056,7 @@ var handler = function(e){
 
   if (token){
     var json = dses.getValue();
-    tagPicker(e, token, json); 
+    tagPicker(e, token, obj); 
   }
 
   // Cheesy function to see if this a cursor position is actually inside of a handlebars tag 
@@ -39101,11 +39101,11 @@ dses.setValue(
 );
 dses.on('change', update);
 
+var obj;
 function update(evt, session){
 
   var str = cses.getValue(), 
-      json = dses.getValue(),
-      obj;
+      json = dses.getValue();
 
   try {
     obj = JSON.parse(json);
@@ -39141,18 +39141,26 @@ module.exports = function(e, token, json){
   // Create box from template
   var template = Handlebars.compile(
       '<div class="tag-picker">'
-    + '  <input type="search" />'
+    + '  <form class="usa-search usa-search-small">'
+    + '    <div role="search">'
+    + '      <label class="usa-sr-only" for="search-field-small">Search small</label>'
+    + '      <input id="search-field-small" type="search" name="search">'
+    + '      <button type="submit">'
+    + '        <span class="usa-sr-only">Search</span>'
+    + '      </button>'
+    + '    </div>'
+    + '  </form>'
     + '  <div class="tag-picker-results">'
     + '    <ul>'
-    + '      {{#results}}'
-    + '        <li>{{keypath}}</li>'
-    + '      {{/results}}'
+    + '      {{#keypaths}}'
+    + '        <li>{{.}}</li>'
+    + '      {{/keypaths}}'
     + '    </ul>'
     + '  </div>'
     + '</div>'
   );
 
-  var obj = search(token, json);
+  var obj = { keypaths : search(token, json)};
 
   result = $(template(obj));
   
@@ -39181,7 +39189,23 @@ module.exports = function(e, token, json){
 };
 
 function search(token, json){
-  return [];
+
+  // Generate a list of all possible keypaths
+  var keypaths = [];
+
+  (function generate(data, path, level){
+    for (var key in data){
+      var current = path ? path + '.' + key : key,
+          value = data[key];
+
+      keypaths.push(current);
+      if (typeof value === 'object'){
+        generate(value, current, level+1);
+      }
+    }
+  })(json, false, 0);
+
+  return keypaths;
 }
 
 },{"handlebars":41,"jquery":54}]},{},[55]);

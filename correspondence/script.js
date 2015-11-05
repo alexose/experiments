@@ -50,7 +50,7 @@ var handler = function(e){
 
   if (token){
     var json = dses.getValue();
-    tagPicker(e, token, json); 
+    tagPicker(e, token, obj); 
   }
 
   // Cheesy function to see if this a cursor position is actually inside of a handlebars tag 
@@ -95,11 +95,11 @@ dses.setValue(
 );
 dses.on('change', update);
 
+var obj;
 function update(evt, session){
 
   var str = cses.getValue(), 
-      json = dses.getValue(),
-      obj;
+      json = dses.getValue();
 
   try {
     obj = JSON.parse(json);

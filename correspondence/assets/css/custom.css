@@ -50,6 +50,37 @@ html, body{
   height:370px;
 }
 
+.tag-picker {
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  box-shadow: 2px 2px 7px rgba(0,0,0,0.2);
+}
+
+.tag-picker .tag-picker-results{
+  max-height: 250px;
+  overflow: auto;
+}
+
+.tag-picker ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.tag-picker li {
+  cursor: pointer;
+  padding: 5px 0 5px 5px;
+  line-height: 1;
+}
+
+.tag-picker li:before {
+  content: none;
+}
+
+.tag-picker li:hover {
+  background: #eee; 
+}
+
 .cf:after {
     content: " "; /* 1 */
     display: table; /* 2 */
