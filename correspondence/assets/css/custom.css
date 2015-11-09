@@ -19,6 +19,11 @@ html, body{
   height: 50px;
 }
 
+#menu select{
+  border: 1px solid #ddd;
+  margin-left: 48px;
+}
+
 #left{
   border-right: none;
 }
