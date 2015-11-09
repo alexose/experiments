@@ -23,6 +23,7 @@ handle.click(function(){
     .animate({ bottom : drawer.hasClass(classname) ? 400 : 30 });
 });
 
+
 // Start ACE editor
 var ace = require('brace');
 require('brace/mode/handlebars');
@@ -40,6 +41,26 @@ cses.on('change', update);
 
 // Set up tag editor interface
 var tagPicker = require('./tag.js');
+
+// Set up menu interface
+// TODO: populate from elsewhere
+var files = [
+  {
+    name : 'First template',
+    value : 'template1.html'
+  },
+  {
+    name : 'Second template',
+    value : 'template2.html'
+  },
+  {
+    name : 'Third template',
+    value : 'template3.html'
+  }
+];
+
+var target = $('#menu');
+    menu = require('./menu.js')(target, files);
 
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){

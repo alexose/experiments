@@ -15,11 +15,15 @@ html, body{
   border-bottom: none;
 }
 
-#main #left.box{
+#menu{
+  height: 50px;
+}
+
+#left{
   border-right: none;
 }
 
-#main #right.box{
+#right{
   padding: 40px;
   overflow: scroll;
 }
@@ -35,6 +39,7 @@ html, body{
   top: auto; right: 0; left: 0; bottom: 0;
   height: 30px;
   background: #fff url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIUnC2nKLnT4or00PvyrQwrPzUZshQAOw==) no-repeat center 8px;;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 #drawer .handle{
@@ -79,6 +84,10 @@ html, body{
 
 .tag-picker li:hover {
   background: #eee; 
+}
+
+.usa-site-header {
+  border: none;
 }
 
 .cf:after {
