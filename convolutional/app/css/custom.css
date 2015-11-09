@@ -1,0 +1,91 @@
+html, body{
+  height: 100px;
+  margin: 0;
+}
+
+#main{
+  position: absolute;
+  top: 125px; right:0; left: 0; bottom: 30px;
+}
+
+#main .box{
+  height: 100%;
+  width: 50%;
+  float:left;
+  border-bottom: none;
+}
+
+#main #left.box{
+  border-right: none;
+}
+
+#main #right.box{
+  padding: 40px;
+  overflow: scroll;
+}
+
+.box {
+  border: 2px solid #ddd;
+}
+
+#drawer{
+  position: fixed;
+  z-index: 9000;
+  background: #fff;
+  top: auto; right: 0; left: 0; bottom: 0;
+  height: 30px;
+  background: #fff url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIUnC2nKLnT4or00PvyrQwrPzUZshQAOw==) no-repeat center 8px;;
+}
+
+#drawer .handle{
+  position: absolute;
+  top: 0; right: 0; left: 0; bottom: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+#drawer #data{
+  position: absolute;
+  top: 30px; right: 0; left: 0;
+  height:370px;
+}
+
+.tag-picker {
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  box-shadow: 2px 2px 7px rgba(0,0,0,0.2);
+}
+
+.tag-picker .tag-picker-results{
+  max-height: 250px;
+  overflow: auto;
+}
+
+.tag-picker ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.tag-picker li {
+  cursor: pointer;
+  padding: 5px 0 5px 5px;
+  line-height: 1;
+}
+
+.tag-picker li:before {
+  content: none;
+}
+
+.tag-picker li:hover {
+  background: #eee; 
+}
+
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
