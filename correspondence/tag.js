@@ -107,9 +107,10 @@ function generate(token, json){
       var current = path ? path + '.' + key : key,
           value = data[key];
 
-      keypaths.push(current);
       if (typeof value === 'object'){
         generate(value, current, level+1);
+      } else {
+        keypaths.push(current);
       }
     }
   })(json, false, 0);
