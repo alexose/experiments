@@ -28,6 +28,7 @@ module.exports = function(target, files, classname, editor){
   element.change(change);
   
   function change(e){
+
     var value = $(this).find('select[name="options"]').val();
 
     template = files.filter(function(d){

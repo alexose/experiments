@@ -400,6 +400,7 @@ module.exports = function(target, files, classname, editor){
   element.change(change);
   
   function change(e){
+
     var value = $(this).find('select[name="options"]').val();
 
     template = files.filter(function(d){
@@ -39227,7 +39228,7 @@ dses.setValue(
 dses.on('change', update);
 
 // Select demo template
-target.find('select:eq(0) option:eq(1)').prop('selected', 'selected').trigger('change');;
+target.find('select:eq(0) option:eq(1)').prop('selected', 'selected').trigger('change');
 
 var obj;
 function update(evt, session){
@@ -39248,6 +39249,13 @@ function update(evt, session){
   try {
     var template = Handlebars.compile(str);
     result = template(obj);
+
+    // Register partials
+    list.partials.forEach(function(d){
+      Handlebars.unregisterPartial(d.name);
+      Handlebars.registerPartial(d.name, d.data);
+    });
+
   } catch(e){
     result = '<div class="usa-alert usa-alert-error" role="alert"><div class="usa-alert-body"><h3 class="usa-alert-heading">Error:</h3> <p class="usa-alert-text">' + e.toString() + '</p></div></div>';
   }
