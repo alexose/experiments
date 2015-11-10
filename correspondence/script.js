@@ -34,9 +34,6 @@ var code = ace.edit('left'),
 
 code.setShowPrintMargin(false);
 cses.setMode('ace/mode/handlebars');
-cses.setValue(
-  fs.readFileSync(__dirname + '/example.html', 'utf8')
-);
 cses.on('change', update);
 
 // Set up tag editor interface
