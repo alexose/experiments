@@ -359,6 +359,10 @@ module.exports = {
       data : "<hr />\n<h2 style=\"margin: 25px;\">Official-looking Header</h2>\n<hr />\n"
     },
     {
+      name : 'Standard_Address',
+      data : "{{proper_app_full_name}}<br />\n{{proper_app_address1}}<br />\n{{proper_app_address2}}<br />\n{{proper_app_address3}}\n"
+    },
+    {
       name : 'State_Letterhead',
       data : "<div style=\"float:left;\">\n  <h2>State of Example</h2>\n</div>\n<div style=\"text-align: right; margin-top: 45px;\">\n  <address>123 Fake Street</address>\n  <address>Fakeville, FA</address>\n</div>\n"
     },
@@ -36700,6 +36704,8 @@ function update(evt, session){
     var find = '{{\&gt\;';
     var re = new RegExp(find, 'g');
     str = str.replace(re, '{{>');
+
+    // console.log(str);
 
     var template = Handlebars.compile(str);
     result = template(obj);

@@ -35,6 +35,10 @@ module.exports = {
       data : fs.readFileSync('./templates/Standard_Header.html', 'utf-8')
     },
     {
+      name : 'Standard_Address',
+      data : fs.readFileSync('./templates/Address.html', 'utf-8')
+    },
+    {
       name : 'State_Letterhead',
       data : fs.readFileSync('./templates/State_Letterhead.html', 'utf-8')
     },

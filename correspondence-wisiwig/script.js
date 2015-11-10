@@ -133,6 +133,8 @@ function update(evt, session){
     var re = new RegExp(find, 'g');
     str = str.replace(re, '{{>');
 
+    // console.log(str);
+
     var template = Handlebars.compile(str);
     result = template(obj);
 
