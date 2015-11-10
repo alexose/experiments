@@ -1,0 +1,99 @@
+<!-- Main Template -->
+{{>state_letterhead}}
+{{>standard_header}}
+
+&nbsp&nbsp&nbsp&nbsp&nbsp{{case_client_contact.0.fnm}}{{case_client_contact.0.lnm}}<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp{{client_address.0.addrln_1}}<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp{{client_address.0.addrln_2}}<br>
+&nbsp&nbsp&nbsp&nbsp{{client_address.0.city}}&nbsp{{client_address.0.st}}&nbsp&nbsp{{client_address.0.zip5}}
+<p>&nbsp</p>
+
+{{>sno_language}}
+{{>spanish_language}}
+
+
+<p>We are the office that makes disability decisions for the Social Security Administration.  We are writing to tell you that we are reviewing your disability claim.</p>
+
+<h5>How We Decide Eligibility For Disability Benefits</h5>
+
+<p>To be eligible for disability benefits, you must have a medical condition(s) that:</p>
+
+<!-- Fancy if statement -->
+<ul>
+{{#if child_case}}
+  <li>Causes marked and severe functional limitations, and</li>
+  <li>Has lasted or is expected to last for at least 12 months in a row, or is expected to result in death</li>
+{{else}}
+  <li>Keeps you from doing any type of work, and</li>
+  <li>Has lasted or is expected to last for at least 12 months in a row, or is expected to result in death</li>
+{{/if}}
+</ul>
+
+<h5>What We Will Do</h5>
+
+<p>We will review the medical and other information we have.  If we need more information to decide whether you disabled, we may arrange an exam or test which we will pay for.  We may also reimburse some travel expenses to the exam or test site based on a set rate.</p>
+
+<h5>What You Need To Do</h5>
+
+<p>Please respond quickly to any letters or forms that you receive from us.  Let us know right away if any of the following occur while we process this claim:</p>
+
+<ul>
+<li>New doctor or hospital visit</li>
+<li>Additional tests, therapy, or surgery</li>
+<li>Changes in dosage, addition, or discontinuation of medication(s),</li>
+{{#if adult_case}}
+<li>Begin or return to work,</li>
+{{/if}}
+<li>New conditions develop,</li>
+<li>Additional current or past medical, educational, or mental health sources not listed on the application.</li>
+</ul>
+
+<p>You must report to SSA right away any changes to address, telephone number(s) or any other personal information.</p>
+
+<h5>If You Have Questions</h5>
+
+<p>If you have any questions or wish to provide more information, please call us at the number(s) shown below Monday - Friday between 9:00 AM and 5:00 PM.  When you call or leave a message, please provide the Case ID:  {{document_request.0.caseid}}, your name, and a call back number.</p> 
+
+{{>interpreter_language}}
+{{>fraud_language}}
+
+{{>standard_signature_block}}
+
+{{>enclosure}}
+{{>multi_language_insert}}
+{{>standard_cc_block}}
+
+<!-- Partials! -->
+{{#*inline "state_letterhead"}}
+  <h4 align="center">{{dds_office.0.org_name}}</h4>
+  <P align="center">{{dds_office.0.addr_ln1}}&nbsp&nbspTrenton,&nbspNJ</P>
+{{/inline}}
+
+{{#*inline "standard_header"}}
+  <p align="right"><b>Date : </b>November 10,2015<br><b>Case ID: </b>{{document_request.0.caseid}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
+ {{/inline}}
+
+{{#*inline "sno_language"}}
+
+{{/inline}}
+
+{{#*inline "spanish_language"}}
+
+{{/inline}}
+
+
+{{#*inline "interpreter_language"}}
+{{/inline}}
+{{#*inline "fraud_language"}}
+{{/inline}}
+
+{{#*inline "standard_signature_block"}}
+<p>&nbsp</p>
+Swetha Boeni<br>Adjudicator<br>(800) 022-5360, EXT.3607 (Toll Free)<br>(443) 348-1841, EXT.8283(TTY)<br>
+{{/inline}}
+{{#*inline "enclosure"}}
+{{/inline}}
+{{#*inline "multi_language_insert"}}
+{{/inline}}
+{{#*inline "standard_cc_block"}}
+{{/inline}}
