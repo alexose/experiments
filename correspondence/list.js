@@ -24,7 +24,7 @@ module.exports = {
   partials : [
     {
       name : 'Standard_Header.html',
-      data : fs.readFileSync('./templates/Howdy_Letter.html', 'utf-8')
+      data : fs.readFileSync('./templates/Standard_Header.html', 'utf-8')
     },
     {
       name : 'State_Letterhead.html',

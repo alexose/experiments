@@ -22,7 +22,7 @@ module.exports = function(target, files, classname, editor){
   );
 
   var element = $(template({classname: classname, files : files})),
-      prevent;
+      ref;
   
   // Set up selection behavior
   element.change(change);
@@ -30,15 +30,23 @@ module.exports = function(target, files, classname, editor){
   function change(e){
     var value = $(this).find('select[name="options"]').val();
 
-    var template = files.filter(function(d){
+    template = files.filter(function(d){
       return d.name === value;
     }).pop();
 
     if (template && template.data){
       editor.setValue(template.data);
-      prevent = true;
+      ref = template;
     }
   }
+
+  // Update data
+  editor.on('change', function(){
+    console.log(ref);
+    if (ref && ref.data){
+      ref.data = editor.getValue();
+    }
+  });
 
   // Append to target 
   element.appendTo(target);
