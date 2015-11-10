@@ -406,13 +406,26 @@ module.exports = function(target, files, classname, editor){
       return d.name === value;
     }).pop();
 
-    console.log($(this).find('select[name="options"]'), template);
-
     if (template && template.data){
       ref = template;
       editor.trumbowyg('html', template.data);
     }
+
+    $('body').trigger('switch-template', [value]);
   }
+
+  $('body').on('switch-template', function(e, name){
+
+    if (name){
+      var option = element.find('option[value="' + name + '"]');
+      if (option.length){
+        option.prop('selected', 'selected');
+      } else {
+        element.find('option:eq(0)').prop('selected', 'selected');
+      }
+    }
+    
+  });
 
   // Update data
   editor.on('tbwchange', function(){
