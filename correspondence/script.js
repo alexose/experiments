@@ -43,10 +43,9 @@ cses.on('change', update);
 var tagPicker = require('./tag.js');
 
 // Set up menu interface
-// TODO: populate from elsewhere
 var list = require('./list.js'),
     target = $('#menu'),
-    menu = require('./menu.js')(target, list);
+    menu = require('./menu.js')(target, list, cses);
 
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){

@@ -5,7 +5,7 @@
 var Handlebars = require('handlebars'),
     $ = require('jquery');
 
-module.exports = function(target, files){
+module.exports = function(target, files, editor){
   
   // Create box from template
   var template = Handlebars.compile(
@@ -27,7 +27,14 @@ module.exports = function(target, files){
   
   function change(e){
     var value = $(this).find('select[name="options"]').val();
-    console.log(value);
+
+    var template = files.filter(function(d){
+      return d.name === value;
+    }).pop();
+
+    if (template && template.data){
+      editor.setValue(template.data);
+    }
   };
 
   // Append to target 
