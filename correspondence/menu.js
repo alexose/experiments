@@ -35,16 +35,18 @@ module.exports = function(target, files, classname, editor){
     }).pop();
 
     if (template && template.data){
-      editor.setValue(template.data);
       ref = template;
+      editor.setValue(template.data);
     }
   }
 
   // Update data
   editor.on('change', function(){
-    console.log(ref);
     if (ref && ref.data){
-      ref.data = editor.getValue();
+      var data = editor.getValue(); 
+      if (data.length > 1){
+        ref.data = data; 
+      }
     }
   });
 

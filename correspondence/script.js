@@ -113,6 +113,9 @@ dses.setValue(
 );
 dses.on('change', update);
 
+// Select demo template
+target.find('select:eq(0) option:eq(1)').prop('selected', 'selected').trigger('change');;
+
 var obj;
 function update(evt, session){
 

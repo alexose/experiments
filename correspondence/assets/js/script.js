@@ -407,16 +407,18 @@ module.exports = function(target, files, classname, editor){
     }).pop();
 
     if (template && template.data){
-      editor.setValue(template.data);
       ref = template;
+      editor.setValue(template.data);
     }
   }
 
   // Update data
   editor.on('change', function(){
-    console.log(ref);
     if (ref && ref.data){
-      ref.data = editor.getValue();
+      var data = editor.getValue(); 
+      if (data.length > 1){
+        ref.data = data; 
+      }
     }
   });
 
@@ -39223,6 +39225,9 @@ dses.setValue(
   "{\n  \"state_letterhead1\":\"DISABILITY DETERMINATIONS SERVICE DIVISION\",\n  \"state_letterhead2\":\"1505 N Mckinney Ln Boise,ID 83704-8533  Phone 208-327-7333 or 1-800-626-2681\",\n  \"state_letterhead3\":\"P.O.Box 21         Boise,ID 83707       Fax 1-866-898-6448l TDD 1-800-626-2681\",\n  \"local_office_hours\":\"Monday - Friday between 9:00 AM and 5:00 PM\",\n  \"case_id\":\"DDE0018912\",\n  \"appointed_rep_name\":\"appointed_rep_name\",\n  \"clmt_full_name\":\"RICARDO MORALES\",\n  \"appointed_rep_address\":\"appointed_rep_address\",\n  \"proper_app_full_name\":\"RICARDO MORALES\",\n  \"proper_app_address1\":\"120 DREISER LOOP\",\n  \"proper_app_address2\":\"APT 2FA\",\n  \"proper_app_address3\":\"BRONX NY 10475\",\n  \"clmt_address\": \"clmt_address\",\n  \"current_date\": \"November 6,2015\",\n  \"employee_desk_name\":\"Swetha Boeni\",\n  \"employee_desk_title\":\"Adjudicator\",\n  \"employee_contact_info1\":\"(443) 348-1841\",\n  \"employee_contact_info2\":\"(800) 022-5360, EXT.3607 (Toll Free)\",\n  \"employee_contact_info3\":\"(443) 348-1841, EXT.8283(TTY)\",\n  \"employee_contact_info4\":\"(121) 778-5771, (FAX)\",\n  \"cc_full_name\":\"\",\n  \"TemplateUserTitle\":\"Howdy Letter\",\n  \"adult_case\": \"Yes\"\n}\n"
 );
 dses.on('change', update);
+
+// Select demo template
+target.find('select:eq(0) option:eq(1)').prop('selected', 'selected').trigger('change');;
 
 var obj;
 function update(evt, session){
