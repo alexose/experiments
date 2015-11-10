@@ -37,7 +37,7 @@ module.exports = function(target, files, classname, editor){
     if (template && template.data){
       ref = template;
       editor.trumbowyg('html', template.data);
-    }
+    } 
 
     $('body').trigger('switch-template', [value]);
   }
@@ -50,6 +50,7 @@ module.exports = function(target, files, classname, editor){
         option.prop('selected', 'selected');
       } else {
         element.find('option:eq(0)').prop('selected', 'selected');
+        ref = null;
       }
     }
     
@@ -57,7 +58,10 @@ module.exports = function(target, files, classname, editor){
 
   // Update data
   editor.on('tbwchange', function(){
+
     if (ref && ref.data){
+      console.log(ref.name);
+    
       var data = editor.trumbowyg('html'); 
       if (data.length > 1){
         ref.data = data; 
