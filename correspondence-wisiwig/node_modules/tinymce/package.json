@@ -1,0 +1,40 @@
+{
+  "name": "tinymce",
+  "version": "4.2.7",
+  "description": "Web based JavaScript HTML WYSIWYG editor control.",
+  "license": "LGPL-2.1",
+  "keywords": [
+    "editor",
+    "wysiwyg",
+    "tinymce",
+    "richtext",
+    "javascript",
+    "html"
+  ],
+  "bugs": {
+    "url": "http://www.tinymce.com/develop/bugtracker.php"
+  },
+  "gitHead": "ba7dd60f92f050dbc408f037de7a5a659875358b",
+  "_id": "tinymce@4.2.7",
+  "scripts": {},
+  "_shasum": "9967c0e0dac45f9766d0027830fcd02325cc6b01",
+  "_from": "tinymce@*",
+  "_npmVersion": "2.11.3",
+  "_nodeVersion": "0.12.7",
+  "_npmUser": {
+    "name": "spocke",
+    "email": "spocke@moxiecode.com"
+  },
+  "dist": {
+    "shasum": "9967c0e0dac45f9766d0027830fcd02325cc6b01",
+    "tarball": "http://registry.npmjs.org/tinymce/-/tinymce-4.2.7.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "spocke",
+      "email": "spocke@moxiecode.com"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/tinymce/-/tinymce-4.2.7.tgz"
+}
