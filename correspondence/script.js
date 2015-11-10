@@ -45,7 +45,10 @@ var tagPicker = require('./tag.js');
 // Set up menu interface
 var list = require('./list.js'),
     target = $('#menu'),
-    menu = require('./menu.js')(target, list, cses);
+    menu = require('./menu.js');
+
+menu(target, list.templates, 'templates', cses);
+menu(target, list.partials, 'partials', cses);
 
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){

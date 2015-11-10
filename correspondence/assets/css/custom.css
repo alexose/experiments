@@ -16,12 +16,24 @@ html, body{
 }
 
 #menu{
-  height: 50px;
+  height: 60px;
+}
+
+#menu form {
+  float: left;
+  margin-left: 48px;
+}
+
+#menu form.partials {
+  margin-left: 10px;
+}
+
+#menu form.partials select {
+  color: #999;
 }
 
 #menu select{
   border: 1px solid #ddd;
-  margin-left: 48px;
 }
 
 #left{

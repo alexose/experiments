@@ -5,12 +5,13 @@
 var Handlebars = require('handlebars'),
     $ = require('jquery');
 
-module.exports = function(target, files, editor){
+module.exports = function(target, files, classname, editor){
   
   // Create box from template
   var template = Handlebars.compile(
-      '<form>'
+      '<form class="{{classname}}">'
     + '  <select name="options" id="options">'
+    + '  <option></option>'
     + '  {{#files}}'
     + '    <option value="{{name}}">{{name}}</option>'
     + '  {{/files}}'
@@ -20,7 +21,8 @@ module.exports = function(target, files, editor){
     + '</form>'
   );
 
-  var element = $(template({files : files}));
+  var element = $(template({classname: classname, files : files})),
+      prevent;
   
   // Set up selection behavior
   element.change(change);
@@ -34,8 +36,9 @@ module.exports = function(target, files, editor){
 
     if (template && template.data){
       editor.setValue(template.data);
+      prevent = true;
     }
-  };
+  }
 
   // Append to target 
   element.appendTo(target);
