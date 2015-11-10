@@ -9,37 +9,37 @@ module.exports = {
       data : fs.readFileSync('./templates/hello.html', 'utf-8')
     },
     {
-      name : 'Howdy Letter',
+      name : 'Howdy_Letter',
       data : fs.readFileSync('./templates/Howdy_letter.html', 'utf-8')
     },
     {
-      name : 'Appointment Notice',
+      name : 'Appointment_Notice',
       data : fs.readFileSync('./templates/AppointmentNotice_confirmation.html', 'utf-8')
     },
     {
-      name : 'Illinois Letter',
+      name : 'Illinois_Letter',
       data : fs.readFileSync('./templates/Illinois Template.html', 'utf-8')
     },
     {
-      name : 'NJ Intro Letter',
+      name : 'NJ_Intro_Letter',
       data : fs.readFileSync('./templates/NJ_Intro_Demo_Template.html', 'utf-8')
     },
     {
-      name : 'Idaho Letter',
+      name : 'Idaho_Letter',
       data : fs.readFileSync('./templates/Idaho_Letter.html', 'utf-8')
     }
   ],
   partials : [
     {
-      name : 'Standard Header',
+      name : 'Standard_Header',
       data : fs.readFileSync('./templates/Standard_Header.html', 'utf-8')
     },
     {
-      name : 'State Letterhead',
+      name : 'State_Letterhead',
       data : fs.readFileSync('./templates/State_Letterhead.html', 'utf-8')
     },
     {
-      name : 'Idaho Header',
+      name : 'Idaho_Header',
       data : fs.readFileSync('./templates/Idaho_Header.html', 'utf-8')
     }
   ]
