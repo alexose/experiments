@@ -36605,6 +36605,8 @@ var list = require('./list.js'),
 menu(target, list.templates, 'templates', editor);
 menu(target, list.partials, 'partials', editor);
 
+$('body').on('switch-template', update);
+
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){
   var editor = e.editor,
