@@ -21,7 +21,7 @@ html, body{
 
 #right{
   padding: 40px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .box {
