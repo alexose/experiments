@@ -129,10 +129,14 @@ function update(evt, session){
   var result;
 
   try {
+    var find = '{{\&gt\;';
+    var re = new RegExp(find, 'g');
+    str = str.replace(re, '{{>');
+
     var template = Handlebars.compile(str);
     result = template(obj);
 
-    // Register partials
+    // Reregister partials
     list.partials.forEach(function(d){
       Handlebars.unregisterPartial(d.name);
       Handlebars.registerPartial(d.name, d.data);

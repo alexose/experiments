@@ -1,18 +1,15 @@
 <!-- Main Template -->
-{{>Real_Header}}
+{{>Idaho_Header}}
 
-&nbsp&nbsp&nbsp&nbsp&nbsp{{proper_app_full_name}}<br>
-&nbsp&nbsp&nbsp&nbsp&nbsp{{proper_app_address1}}<br>
-&nbsp&nbsp&nbsp&nbsp&nbsp{{proper_app_address2}}<br>
-&nbsp&nbsp&nbsp&nbsp&nbsp{{proper_app_address3}}
-<p>&nbsp</p>
-
-{{>sno_language}}
-{{>spanish_language}}
-
+<div style="margin-left: 30px">
+  {{proper_app_full_name}}<br />
+  {{proper_app_address1}}<br />
+  {{proper_app_address2}}<br />
+  {{proper_app_address3}}
+</div>
 
 <p>We are the office that makes disability decisions for the Social Security Administration.  We are writing to tell you that we are reviewing your disability claim.</p>
-:x
+
 <h5>How We Decide Eligibility For Disability Benefits</h5>
 
 <p>To be eligible for disability benefits, you must have a medical condition(s) that:</p>
@@ -53,29 +50,4 @@
 
 <p>If you have any questions or wish to provide more information, please call us at the number(s) shown below Monday - Friday between 9:00 AM and 5:00 PM.  When you call or leave a message, please provide the Case ID:  {{case_id}}, your name, and a call back number.</p> 
 
-{{>interpreter_language}}
-{{>fraud_language}}
-
-{{>standard_signature_block}}
-
-{{>enclosure}}
-{{>multi_language_insert}}
-{{>standard_cc_block}}
-
-<!-- Partials! -->
-
-{{#*inline "state_letterhead"}}
-
-  <p><h5><u>{{state_letterhead1}}</u><img src="https://labor.idaho.gov/dnn/Portals/_Default/Skins/LaborSkin/images/logo.png" alt="" style="float:right;width:120px;height:60px;"></p></h5>
-  <h6>{{state_letterhead2}}<br>{{state_letterhead3}}<br>{{state_letterhead4}}</h6>
-
-{{/inline}}
-
-{{#*inline "standard_header"}}
-  <p align="right">Date : November 10,2015<br>Case ID: {{case_id}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
-{{/inline}}
-
-{{#*inline "standard_signature_block"}}
-<p>&nbsp</p>
-Swetha Boeni<br>Adjudicator<br>(800) 022-5360, EXT.3607 (Toll Free)<br>(443) 348-1841, EXT.8283(TTY)<br>{{employee_contact_info4}}
-{{/inline}}
+{{>Idaho_Footer}}

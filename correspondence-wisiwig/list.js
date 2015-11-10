@@ -41,6 +41,10 @@ module.exports = {
     {
       name : 'Idaho_Header',
       data : fs.readFileSync('./templates/Idaho_Header.html', 'utf-8')
+    },
+    {
+      name : 'Idaho_Footer',
+      data : fs.readFileSync('./templates/Idaho_Footer.html', 'utf-8')
     }
   ]
 };

@@ -350,7 +350,7 @@ module.exports = {
     },
     {
       name : 'Idaho_Letter',
-      data : "<!-- Main Template -->\n{{>Real_Header}}\n\n&nbsp&nbsp&nbsp&nbsp&nbsp{{proper_app_full_name}}<br>\n&nbsp&nbsp&nbsp&nbsp&nbsp{{proper_app_address1}}<br>\n&nbsp&nbsp&nbsp&nbsp&nbsp{{proper_app_address2}}<br>\n&nbsp&nbsp&nbsp&nbsp&nbsp{{proper_app_address3}}\n<p>&nbsp</p>\n\n{{>sno_language}}\n{{>spanish_language}}\n\n\n<p>We are the office that makes disability decisions for the Social Security Administration.  We are writing to tell you that we are reviewing your disability claim.</p>\n:x\n<h5>How We Decide Eligibility For Disability Benefits</h5>\n\n<p>To be eligible for disability benefits, you must have a medical condition(s) that:</p>\n\n<!-- Fancy if statement -->\n<ul>\n{{#if child_case}}\n  <li>Causes marked and severe functional limitations, and</li>\n  <li>Has lasted or is expected to last for at least 12 months in a row, or is expected to result in death</li>\n{{else}}\n  <li>Keeps you from doing any type of work, and</li>\n  <li>Has lasted or is expected to last for at least 12 months in a row, or is expected to result in death</li>\n{{/if}}\n</ul>\n\n<h5>What We Will Do</h5>\n\n<p>We will review the medical and other information we have.  If we need more information to decide whether you disabled, we may arrange an exam or test which we will pay for.  We may also reimburse some travel expenses to the exam or test site based on a set rate.</p>\n\n<h5>What You Need To Do</h5>\n\n<p>Please respond quickly to any letters or forms that you receive from us.  Let us know right away if any of the following occur while we process this claim:</p>\n\n<ul>\n<li>New doctor or hospital visit</li>\n<li>Additional tests, therapy, or surgery</li>\n<li>Changes in dosage, addition, or discontinuation of medication(s),</li>\n{{#if adult_case}}\n<li>Begin or return to work,</li>\n{{/if}}\n<li>New conditions develop,</li>\n<li>Additional current or past medical, educational, or mental health sources not listed on the application.</li>\n</ul>\n\n<p>You must report to SSA right away any changes to address, telephone number(s) or any other personal information.</p>\n\n<h5>If You Have Questions</h5>\n\n<p>If you have any questions or wish to provide more information, please call us at the number(s) shown below Monday - Friday between 9:00 AM and 5:00 PM.  When you call or leave a message, please provide the Case ID:  {{case_id}}, your name, and a call back number.</p> \n\n{{>interpreter_language}}\n{{>fraud_language}}\n\n{{>standard_signature_block}}\n\n{{>enclosure}}\n{{>multi_language_insert}}\n{{>standard_cc_block}}\n\n<!-- Partials! -->\n\n{{#*inline \"state_letterhead\"}}\n\n  <p><h5><u>{{state_letterhead1}}</u><img src=\"https://labor.idaho.gov/dnn/Portals/_Default/Skins/LaborSkin/images/logo.png\" alt=\"\" style=\"float:right;width:120px;height:60px;\"></p></h5>\n  <h6>{{state_letterhead2}}<br>{{state_letterhead3}}<br>{{state_letterhead4}}</h6>\n\n{{/inline}}\n\n{{#*inline \"standard_header\"}}\n  <p align=\"right\">Date : November 10,2015<br>Case ID: {{case_id}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>\n{{/inline}}\n\n{{#*inline \"standard_signature_block\"}}\n<p>&nbsp</p>\nSwetha Boeni<br>Adjudicator<br>(800) 022-5360, EXT.3607 (Toll Free)<br>(443) 348-1841, EXT.8283(TTY)<br>{{employee_contact_info4}}\n{{/inline}}\n"
+      data : "<!-- Main Template -->\n{{>Idaho_Header}}\n\n<div style=\"margin-left: 30px\">\n  {{proper_app_full_name}}<br />\n  {{proper_app_address1}}<br />\n  {{proper_app_address2}}<br />\n  {{proper_app_address3}}\n</div>\n\n<p>We are the office that makes disability decisions for the Social Security Administration.  We are writing to tell you that we are reviewing your disability claim.</p>\n\n<h5>How We Decide Eligibility For Disability Benefits</h5>\n\n<p>To be eligible for disability benefits, you must have a medical condition(s) that:</p>\n\n<!-- Fancy if statement -->\n<ul>\n{{#if child_case}}\n  <li>Causes marked and severe functional limitations, and</li>\n  <li>Has lasted or is expected to last for at least 12 months in a row, or is expected to result in death</li>\n{{else}}\n  <li>Keeps you from doing any type of work, and</li>\n  <li>Has lasted or is expected to last for at least 12 months in a row, or is expected to result in death</li>\n{{/if}}\n</ul>\n\n<h5>What We Will Do</h5>\n\n<p>We will review the medical and other information we have.  If we need more information to decide whether you disabled, we may arrange an exam or test which we will pay for.  We may also reimburse some travel expenses to the exam or test site based on a set rate.</p>\n\n<h5>What You Need To Do</h5>\n\n<p>Please respond quickly to any letters or forms that you receive from us.  Let us know right away if any of the following occur while we process this claim:</p>\n\n<ul>\n<li>New doctor or hospital visit</li>\n<li>Additional tests, therapy, or surgery</li>\n<li>Changes in dosage, addition, or discontinuation of medication(s),</li>\n{{#if adult_case}}\n<li>Begin or return to work,</li>\n{{/if}}\n<li>New conditions develop,</li>\n<li>Additional current or past medical, educational, or mental health sources not listed on the application.</li>\n</ul>\n\n<p>You must report to SSA right away any changes to address, telephone number(s) or any other personal information.</p>\n\n<h5>If You Have Questions</h5>\n\n<p>If you have any questions or wish to provide more information, please call us at the number(s) shown below Monday - Friday between 9:00 AM and 5:00 PM.  When you call or leave a message, please provide the Case ID:  {{case_id}}, your name, and a call back number.</p> \n\n{{>Idaho_Footer}}\n"
     }
   ],
   partials : [
@@ -364,7 +364,11 @@ module.exports = {
     },
     {
       name : 'Idaho_Header',
-      data : "<!-- Main Template -->\n  <p>\n    <h5><u>{{state_letterhead1}}</u>\n      <img src=\"https://labor.idaho.gov/dnn/Portals/_Default/Skins/LaborSkin/images/logo.png\" alt=\"\" style=\"float:right;width:120px;height:60px;\">\n    </h5>\n    <h6>\n      {{state_letterhead2}}<br />\n      {{state_letterhead3}}<br />\n      {{state_letterhead4}}<br />\n    </h6>\n  </p>\n  <p align=\"right\">\n    Date : November 10,2015<br />\n    Case ID: {{case_id}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n  </p>\n"
+      data : "<!-- Main Template -->\n  <p>\n    <h5><u>{{state_letterhead1}}</u>\n      <img src=\"https://labor.idaho.gov/dnn/Portals/_Default/Skins/LaborSkin/images/logo.png\" alt=\"\" style=\"float:right;width:120px;height:60px;\">\n    </h5>\n    <h6>\n      {{state_letterhead2}} <br />\n      {{state_letterhead3}} <br />\n      {{state_letterhead4}} <br />\n    </h6>\n  </p>\n  <p align=\"right\">\n    Date : November 10,2015<br />\n    Case ID: {{case_id}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n  </p>\n"
+    },
+    {
+      name : 'Idaho_Footer',
+      data : "<p>&nbsp</p>\nSwetha Boeni<br>Adjudicator<br>(800) 022-5360, EXT.3607 (Toll Free)<br>(443) 348-1841, EXT.8283(TTY)<br>{{employee_contact_info4}}\n~\n"
     }
   ]
 };
@@ -36693,10 +36697,14 @@ function update(evt, session){
   var result;
 
   try {
+    var find = '{{\&gt\;';
+    var re = new RegExp(find, 'g');
+    str = str.replace(re, '{{>');
+
     var template = Handlebars.compile(str);
     result = template(obj);
 
-    // Register partials
+    // Reregister partials
     list.partials.forEach(function(d){
       Handlebars.unregisterPartial(d.name);
       Handlebars.registerPartial(d.name, d.data);
