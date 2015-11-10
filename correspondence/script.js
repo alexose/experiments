@@ -1,4 +1,4 @@
-// This script requires watchify!
+/// This script requires watchify!
 // Install via "npm install -g watchify"
 //
 // To monitor this file for changes and rebuild automatically, type:
@@ -44,23 +44,9 @@ var tagPicker = require('./tag.js');
 
 // Set up menu interface
 // TODO: populate from elsewhere
-var files = [
-  {
-    name : 'First template',
-    value : 'template1.html'
-  },
-  {
-    name : 'Second template',
-    value : 'template2.html'
-  },
-  {
-    name : 'Third template',
-    value : 'template3.html'
-  }
-];
-
-var target = $('#menu');
-    menu = require('./menu.js')(target, files);
+var list = require('./list.js'),
+    target = $('#menu'),
+    menu = require('./menu.js')(target, list);
 
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){
