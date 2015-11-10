@@ -1,0 +1,41 @@
+{
+  "title" : "Examples",
+  "buttons" : [
+    {
+      "type" : "primary",
+      "text" : "Button One!"
+    },
+    {
+      "type" : "primary-alt",
+      "text" : "Button Two!"
+    },
+    {
+      "type" : "secondary",
+      "text" : "Button Three!"
+    }
+  ],
+  "table" : {
+    "rows" : [
+      {
+        "title" : "Declaration of Independence",
+        "description": "Statement adopted by the Continental Congress declaring independence from the British Empire.",
+        "year": "1777"
+      },
+      {
+        "title" : "Bill of Rights",
+        "description": "The first ten amendments of the U.S. Constitution guaranteeing rights and freedoms.",
+        "year": "1791"
+      },
+      {
+        "title" : "Declaration of Sentiments",
+        "description": "A document written during the Seneca Falls Convention outlining the rights that American women should be entitled to as citizens.",
+        "year": "1848"
+      },
+      {
+        "title" : "Emancipation Proclamation",
+        "description": "An executive order granting freedom to slaves in designated southern states.",
+        "year": "1863"
+      }
+    ]
+  }
+}

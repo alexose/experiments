@@ -1,0 +1,42 @@
+<!-- Main template -->
+{{>header}}
+
+<!-- Buttons -->
+{{#buttons}}
+   <button class="usa-button-{{type}}">{{text}}</button>
+{{/buttons}}
+
+<!-- Tables -->
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Document title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#table.rows}}
+    <tr>
+      <td scope="row">{{title}}</td>
+      <td>{{description}}</td>
+      <td>{{year}}</td>
+    </tr>
+    {{/table.rows}}
+  </tbody>
+</table>
+
+{{>footer}}
+
+
+<!-- Inline partials! -->
+{{#*inline "header"}}
+  <header>
+    <h1>{{title}}</h1>
+  </header>
+{{/inline}}
+
+{{#*inline "footer"}}
+  <hr />
+  <footer>Footer goes here.</footer>
+{{/inline}}
