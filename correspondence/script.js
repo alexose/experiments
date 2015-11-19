@@ -16,10 +16,10 @@ handle.click(function(){
   var classname = 'expanded';
   drawer
     .toggleClass(classname)
-    .animate({ height : drawer.hasClass(classname) ? 400 : 30 });
+    .animate({ height : drawer.hasClass(classname) ? 300 : 30 });
 
   main
-    .animate({ bottom : drawer.hasClass(classname) ? 400 : 30 });
+    .animate({ bottom : drawer.hasClass(classname) ? 300 : 30 });
 });
 
 
