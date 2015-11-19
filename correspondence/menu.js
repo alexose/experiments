@@ -57,12 +57,12 @@ module.exports = function(target, files, classname, editor){
   });
 
   // Update data
-  editor.on('tbwchange', function(){
+  editor.on('change', function(){
 
     if (ref && ref.data){
       console.log(ref.name);
     
-      var data = editor.trumbowyg('html'); 
+      var data = editor.getData(); 
       if (data.length > 1){
         ref.data = data; 
       }
