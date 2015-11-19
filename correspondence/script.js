@@ -32,6 +32,11 @@ var editor = CKEDITOR.replace('editor');
 // Resize editor window to fit div
 CKEDITOR.on('instanceReady', resize); 
 
+editor.on('contentDom', function () {
+  var editable = editor.editable();
+  editable.attachListener(editable, 'click', handler); 
+});
+
 $(window).on('resize', resize); 
 
 function resize() {
@@ -59,16 +64,18 @@ $('body').on('switch-template', update);
 
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){
-  var editor = e.editor,
-      rows = editor.session.doc.getAllLines(),
-      pos = editor.getCursorPosition(),
-      token = getToken(rows,pos);
+
+
+  var pos = editor.getSelection().getRanges()[0].startOffset,
+      str = editor.document.getBody().getText(), 
+      token = getToken(str, pos);
+
+  console.log(token);
 
   if (token){
     var json = dses.getValue();
     tagPicker(e, token.string, obj, function(result){
       var row = rows[token.row],
-          Range = ace.acequire('ace/range').Range,
           rng = new Range(token.row, token.beginning + 1, token.row, token.end - 1),
           doc = editor.session.doc;
 
@@ -77,25 +84,24 @@ var handler = function(e){
   }
 
   // Cheesy function to see if this a cursor position is actually inside of a handlebars tag 
-  function getToken(lines, pos){
+  function getToken(str, pos){
 
-    var row = rows[pos.row],
-        beginning,
+    var beginning,
         end,
         i,
         c;
 
     // Move left to find tag beginning
-    for (i=pos.column; i>0; i--){
-      c = row[i-1] + row[i];
+    for (i=pos; i>0; i--){
+      c = str[i-1] + str[i];
       if (c === '{{'){
         beginning = i;
       }
     }
     
     // Move right to find tag end
-    for (i=pos.column; i<row.length; i++){
-      c = row[i-1] + row[i];
+    for (i=pos; i<str.length; i++){
+      c = str[i-1] + str[i];
       if (c === '}}'){
         end = i;
       }
@@ -105,13 +111,13 @@ var handler = function(e){
       return {
         beginning : beginning,
         end: end,
-        row: pos.row,
         string: row.substr(beginning+1, end-3)
       };
     } 
   }
 };
-// code.on("click", handler);
+
+$('#left').on("click", handler);
 
 var data = ace.edit('data'),
     dses = data.getSession();
