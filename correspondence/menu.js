@@ -2,8 +2,7 @@
 
 // Simple interface that allows better variable selection 
 // TODO:  This should be written using React.
-var Handlebars = require('handlebars'),
-    $ = require('jquery');
+var Handlebars = require('handlebars');
 
 module.exports = function(target, files, classname, editor){
   
@@ -37,14 +36,33 @@ module.exports = function(target, files, classname, editor){
 
     if (template && template.data){
       ref = template;
-      editor.setValue(template.data);
-    }
+      editor.trumbowyg('html', template.data);
+    } 
+
+    $('body').trigger('switch-template', [value]);
   }
 
+  $('body').on('switch-template', function(e, name){
+
+    if (name){
+      var option = element.find('option[value="' + name + '"]');
+      if (option.length){
+        option.prop('selected', 'selected');
+      } else {
+        element.find('option:eq(0)').prop('selected', 'selected');
+        ref = null;
+      }
+    }
+    
+  });
+
   // Update data
-  editor.on('change', function(){
+  editor.on('tbwchange', function(){
+
     if (ref && ref.data){
-      var data = editor.getValue(); 
+      console.log(ref.name);
+    
+      var data = editor.trumbowyg('html'); 
       if (data.length > 1){
         ref.data = data; 
       }

@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Template Tool</title>
+    <link rel="stylesheet" href="deps/trumbowyg/dist/ui/trumbowyg.min.css">
     <link rel="stylesheet" href="assets/css/google-fonts.css">
     <link rel="stylesheet" href="assets/css/styleguide.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -39,13 +40,17 @@
     </header>
     <div id="main" class="cf">
       <div id="menu" class="cf"></div>
-      <div id="left" class="box"></div>
+      <div id="left" class="box">
+        <div id="editor"></div> 
+      </div>
       <div id="right" class="box"></div>
     </div>
     <div id="drawer" class="box">
       <div class="handle"></div>  
       <div id="data"></div>  
     </div>
+    <script src="assets/js/jquery.js"></script>
+    <script src="deps/trumbowyg/dist/trumbowyg.min.js"></script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>

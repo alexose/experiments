@@ -5,7 +5,6 @@
 // watchify -v -t brfs script.js -o assets/js/script.js
 
 var fs = require('fs');
-var $ = require('jquery');
 var Handlebars = require('handlebars');
 
 // Set up drawer
@@ -24,17 +23,12 @@ handle.click(function(){
 });
 
 
-// Start ACE editor
 var ace = require('brace');
-require('brace/mode/handlebars');
 require('brace/mode/json');
 
-var code = ace.edit('left'),
-    cses = code.getSession();
+var editor = $('#editor').trumbowyg();
 
-code.setShowPrintMargin(false);
-cses.setMode('ace/mode/handlebars');
-cses.on('change', update);
+editor.on('tbwchange', update);
 
 // Set up tag editor interface
 var tagPicker = require('./tag.js');
@@ -44,8 +38,10 @@ var list = require('./list.js'),
     target = $('#menu'),
     menu = require('./menu.js');
 
-menu(target, list.templates, 'templates', cses);
-menu(target, list.partials, 'partials', cses);
+menu(target, list.templates, 'templates', editor);
+menu(target, list.partials, 'partials', editor);
+
+$('body').on('switch-template', update);
 
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){
@@ -101,7 +97,7 @@ var handler = function(e){
     } 
   }
 };
-code.on("click", handler);
+// code.on("click", handler);
 
 var data = ace.edit('data'),
     dses = data.getSession();
@@ -119,7 +115,7 @@ target.find('select:eq(0) option:eq(1)').prop('selected', 'selected').trigger('c
 var obj;
 function update(evt, session){
 
-  var str = cses.getValue(), 
+  var str = editor.trumbowyg('html'), 
       json = dses.getValue();
 
   try {
@@ -133,10 +129,16 @@ function update(evt, session){
   var result;
 
   try {
+    var find = '{{\&gt\;';
+    var re = new RegExp(find, 'g');
+    str = str.replace(re, '{{>');
+
+    // console.log(str);
+
     var template = Handlebars.compile(str);
     result = template(obj);
 
-    // Register partials
+    // Reregister partials
     list.partials.forEach(function(d){
       Handlebars.unregisterPartial(d.name);
       Handlebars.registerPartial(d.name, d.data);
