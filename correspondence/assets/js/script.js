@@ -36610,7 +36610,7 @@ CKEDITOR.on('instanceReady', resize);
 
 editor.on('contentDom', function(){
   var editable = editor.editable();
-  editor.on('doubleclick', handler);
+  // editor.on('doubleclick', handler);
 });
 
 $(window).on('resize', resize); 
