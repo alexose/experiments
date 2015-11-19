@@ -45,6 +45,16 @@ html, body{
   border: none;
 }
 
+#left textarea:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important; 
+}
+
+*:focus {
+  outline: 0;
+}
+
 #right{
   padding: 40px;
   overflow: scroll;
