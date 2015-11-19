@@ -41,27 +41,9 @@ html, body{
   overflow: auto;
 }
 
-#left #editor, #left .trumbowyg-box,
-#left #editor, #left .trumbowyg-textarea{
-  height: 100%;
-  width: 100%;
-  padding:0;
-  margin:0;
+#left .cke_chrome{
   border: none;
 }
-
-#left #editor, #left .trumbowyg-box li,
-#left #editor, #left .trumbowyg-box li button{
-  line-height: auto;
-  margin: 0;
-  padding: 0;
-}
-
-#left #editor, #left .trumbowyg-editor{
-  line-height: auto;
-  padding: 20px 20px 50px 20px;
-}
-
 
 #right{
   padding: 40px;

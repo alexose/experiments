@@ -416,7 +416,7 @@ module.exports = function(target, files, classname, editor){
 
     if (template && template.data){
       ref = template;
-      editor.trumbowyg('html', template.data);
+      editor.setData(template.data);
     } 
 
     $('body').trigger('switch-template', [value]);
@@ -36574,7 +36574,7 @@ return jQuery;
 }));
 
 },{}],53:[function(require,module,exports){
-/// This script requires watchify!
+// This script requires watchify!
 // Install via "npm install -g watchify"
 //
 // To monitor this file for changes and rebuild automatically, type:
@@ -36602,9 +36602,23 @@ handle.click(function(){
 var ace = require('brace');
 require('brace/mode/json');
 
-var editor = $('#editor').trumbowyg();
+CKEDITOR.config.skin = 'office2013';
+var editor = CKEDITOR.replace('editor');
 
-editor.on('tbwchange', update);
+// Resize editor window to fit div
+CKEDITOR.on('instanceReady', resize); 
+
+$(window).on('resize', resize); 
+
+function resize() {
+    editor.element.show();
+    var h = $('#left').height();
+    editor.element.hide();
+    editor.resize('100%', h - 123, true);
+}
+
+
+editor.on('change', update);
 
 // Set up tag editor interface
 var tagPicker = require('./tag.js');
@@ -36691,7 +36705,7 @@ target.find('select:eq(0) option:eq(1)').prop('selected', 'selected').trigger('c
 var obj;
 function update(evt, session){
 
-  var str = editor.trumbowyg('html'), 
+  var str = editor.getData(),
       json = dses.getValue();
 
   try {

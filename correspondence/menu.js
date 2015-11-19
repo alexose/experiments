@@ -36,7 +36,7 @@ module.exports = function(target, files, classname, editor){
 
     if (template && template.data){
       ref = template;
-      editor.trumbowyg('html', template.data);
+      editor.setData(template.data);
     } 
 
     $('body').trigger('switch-template', [value]);
