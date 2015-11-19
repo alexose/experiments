@@ -36608,9 +36608,9 @@ var editor = CKEDITOR.replace('editor');
 // Resize editor window to fit div
 CKEDITOR.on('instanceReady', resize); 
 
-editor.on('contentDom', function () {
+editor.on('contentDom', function(){
   var editable = editor.editable();
-  editable.attachListener(editable, 'click', handler); 
+  editor.on('doubleclick', handler);
 });
 
 $(window).on('resize', resize); 
@@ -36641,56 +36641,12 @@ $('body').on('switch-template', update);
 // via http://stackoverflow.com/questions/20889174
 var handler = function(e){
 
+  var pos = editor.getSelection().getRanges()[0];
+  console.log(pos);
 
-  var pos = editor.getSelection().getRanges()[0].startOffset,
-      str = editor.document.getBody().getText(), 
-      token = getToken(str, pos);
-
-  console.log(token);
-
-  if (token){
-    var json = dses.getValue();
-    tagPicker(e, token.string, obj, function(result){
-      var row = rows[token.row],
-          rng = new Range(token.row, token.beginning + 1, token.row, token.end - 1),
-          doc = editor.session.doc;
-
-      doc.replace(rng, result);
-    }); 
-  }
-
-  // Cheesy function to see if this a cursor position is actually inside of a handlebars tag 
-  function getToken(str, pos){
-
-    var beginning,
-        end,
-        i,
-        c;
-
-    // Move left to find tag beginning
-    for (i=pos; i>0; i--){
-      c = str[i-1] + str[i];
-      if (c === '{{'){
-        beginning = i;
-      }
-    }
-    
-    // Move right to find tag end
-    for (i=pos; i<str.length; i++){
-      c = str[i-1] + str[i];
-      if (c === '}}'){
-        end = i;
-      }
-    }
-      
-    if (beginning && end){
-      return {
-        beginning : beginning,
-        end: end,
-        string: row.substr(beginning+1, end-3)
-      };
-    } 
-  }
+  tagPicker(e, '', obj, function(result){
+    console.log(result);
+  });
 };
 
 $('#left').on("click", handler);
