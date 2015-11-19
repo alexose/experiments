@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Template Tool</title>
+    <link rel="stylesheet" href="assets/css/google-fonts.css">
+    <link rel="stylesheet" href="assets/css/styleguide.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/print.css">
+  </head>
+  <body>
+    <header class="usa-site-header" role="banner">
+      <div class="usa-disclaimer">
+        <span class="usa-disclaimer-official">
+          <img class="usa-flag_icon" alt="US flag signifying that this is a United States Federal Government website" src="assets/img/us_flag_small.png">
+          An official website of the United States Government
+        </span>
+        <span class="usa-disclaimer-stage">This site is currently in alpha. <a href="https://18f.gsa.gov/dashboard/stages/#alpha">Learn more.</a></span>
+      </div>
+      <nav class="usa-site-navbar">
+        <a class="menu-btn" href="#">Menu</a>
+        <div class="logo" id="logo">
+          <h1>
+            <a href="/designstandards/" accesskey="1" title="Home" aria-label="Home">
+            Template Tool</a>
+          </h1>
+        </div>
+        <ul class="usa-button-list usa-unstyled-list">
+          <li>
+            <a class="usa-button" href="https://github.com/alexose/experiments/">Download code</a>
+          </li>
+          <li>
+            <a class="usa-button usa-button-outline" href="https://github.com/alexose/experiments">
+              View on GitHub
+            </a>
+            </li>
+        </ul>
+      </nav>
+    </header>
+    <div id="main" class="cf">
+      <div id="menu" class="cf"></div>
+      <div id="left" class="box">
+        <textarea id="editor"></textarea> 
+      </div>
+      <div id="right" class="box"></div>
+    </div>
+    <div id="drawer" class="box">
+      <div class="handle"></div>  
+      <div id="data"></div>  
+    </div>
+    <script src="assets/js/jquery.js"></script>
+    <script src="bower_components/ckeditor/ckeditor.js"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
