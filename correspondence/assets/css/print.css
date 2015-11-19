@@ -1,8 +1,12 @@
 @media print {
+   #menu, #drawer {
+     display: none;
+   }
    #right {
       position: fixed;
       z-index: 9001;
       width: 100% !important;
+      height: 100% !important;
       border: none !important;
       background: #fff;
       height: 100%;
