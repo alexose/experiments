@@ -36649,7 +36649,7 @@ var handler = function(e){
   });
 };
 
-$('#left').on("click", handler);
+// $('#left').on("click", handler);
 
 var data = ace.edit('data'),
     dses = data.getSession();
