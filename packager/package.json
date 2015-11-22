@@ -1,5 +1,5 @@
 {
-  "name": "Package Builder",
+  "name": "package-builder",
   "version": "1.0.0",
   "description": "Package Builder",
   "main": "index.js",
@@ -10,22 +10,20 @@
   "license": "ISC",
   "dependencies": {
     "babelify": "^7.2.0",
-    "brace": "^0.5.1",
-    "brfs": "^1.4.1",
     "browserify": "^12.0.1",
     "gulp": "^3.9.0",
     "gulp-notify": "^2.2.0",
-    "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
-    "handlebars": "^4.0.4",
     "jquery": "^2.1.4",
     "react": "^0.14.3",
     "react-dnd": "^2.0.2",
     "react-dnd-touch-backend": "^0.2.1",
+    "react-dom": "^0.14.3",
     "reactify": "^1.1.1",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.6.1"
+  },
+  "devDependencies": {
+    "babel-preset-react": "^6.1.18"
   }
 }
