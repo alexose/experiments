@@ -1,24 +1,30 @@
-// Let's make <Card text='Write the docs' /> draggable!
-
 var React = require('react');
 var DragSource = require('react-dnd').DragSource;
-var ItemTypes = require('./Constants').ItemTypes;
-var PropTypes = React.PropTypes;
 
-/**
- * Implements the drag source contract.
- */
+var Types = {
+  CARD: 'card'
+};
+
 var cardSource = {
   beginDrag: function (props) {
-    return {
-      text: props.text
-    };
-  }
-}
 
-/**
- * Specifies the props to inject into your component.
- */
+    // Return the data describing the dragged item
+    var item = { id: props.id };
+    return item;
+  },
+
+  endDrag: function (props, monitor, component) {
+    if (!monitor.didDrop()) {
+      return;
+    }
+
+    // When dropped on a compatible target, do something
+    var item = monitor.getItem();
+    var dropResult = monitor.getDropResult();
+    CardActions.moveCardToList(item.id, dropResult.listId);
+  }
+};
+
 function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
@@ -27,26 +33,20 @@ function collect(connect, monitor) {
 }
 
 var Card = React.createClass({
-  propTypes: {
-    text: PropTypes.string.isRequired,
-
-    // Injected by React DnD:
-    isDragging: PropTypes.bool.isRequired,
-    connectDragSource: PropTypes.func.isRequired
-  },
-
   render: function () {
+    var id = this.props.id;
+
     var isDragging = this.props.isDragging;
     var connectDragSource = this.props.connectDragSource;
-    var text = this.props.text;
 
     return connectDragSource(
-      <div style={{ opacity: isDragging ? 0.5 : 1 }}>
-        {text}
+      <div>
+        I am a draggable card number {id}
+        {isDragging && ' (and I am being dragged now)'}
       </div>
     );
   }
 });
 
-// Export the wrapped component:
-module.exports = DragSource(ItemTypes.CARD, cardSource, collect)(Card);
+// Export the wrapped version
+module.exports = DragSource(Types.CARD, cardSource, collect)(Card);
