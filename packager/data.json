@@ -1,4 +1,4 @@
-[
+module.exports = [
   {
     "id" : 00001,
     "name" : "Idaho Cover Letter",

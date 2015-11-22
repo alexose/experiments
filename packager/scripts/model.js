@@ -1,6 +1,7 @@
 var Utils = require('./utils.js');
 
 var Model = function(key){
+  this.id = 0;
   this.key = key;
   this.items = Utils.store(key);
   this.onChanges = [];
@@ -15,11 +16,11 @@ Model.prototype.inform = function () {
   this.onChanges.forEach(function (cb) { cb(); });
 };
 
-Model.prototype.addItem = function (title){
-  this.todos = this.todos.concat({
-    id: Utils.uuid(),
-    title: title,
-    completed: false
+Model.prototype.addItem = function(name, type){
+  this.items = this.items.concat({
+    "id":   this.id++,
+    "name": name,
+    "type": type 
   });
 
   this.inform();
