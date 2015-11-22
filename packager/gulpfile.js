@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
 var reactify = require('reactify');
-var babelify = require('babelify');
 var watchify = require('watchify');
 var notify = require('gulp-notify');
 
@@ -24,7 +23,7 @@ function buildScript(file, watch) {
     entries: ['./scripts/' + file],
     debug : true,
     extensions: ['.jsx'],
-    transform:  [reactify, babelify]
+    transform:  [reactify]
   };
 
   // watchify() if watch requested, otherwise run browserify() once 
