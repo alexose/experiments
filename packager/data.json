@@ -1,0 +1,52 @@
+[
+  {
+    "id" : 00001,
+    "name" : "Idaho Cover Letter",
+    "type" : "template"
+  },
+  {
+    "id" : 00002,
+    "name" : "SNO Language",
+    "type" : "template"
+  },
+  {
+    "id" : 00003,
+    "name" : "General Information",
+    "type" : "template"
+  },
+  {
+    "id" : 00004,
+    "name" : "SSA Privacy Information",
+    "type" : "pdf"
+  },
+  {
+    "id" : 00005,
+    "name" : "Map to local DDS",
+    "type" : "image"
+  },
+  {
+    "id" : 00006,
+    "name" : "Idaho Special Terms and Conditions",
+    "type" : "template"
+  },
+  {
+    "id" : 00007,
+    "name" : "Boise Office Location",
+    "type" : "image"
+  },
+  {
+    "id" : 00008,
+    "name" : "508 Compliance Memo",
+    "type" : "pdf"
+  },
+  {
+    "id" : 00009,
+    "name" : "SSA Form 521",
+    "type" : "pdf"
+  },
+  {
+    "id" : 00010,
+    "name" : "SSA Form 1696",
+    "type" : "pdf"
+  },
+]

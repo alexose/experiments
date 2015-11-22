@@ -1,0 +1,58 @@
+html, body{
+  height: 100px;
+  margin: 0;
+}
+
+#main{
+  position: absolute;
+  top: 125px; right:0; left: 0; bottom: 30px;
+}
+
+#menu{
+  height: 60px;
+}
+
+#menu form {
+  float: left;
+  margin-left: 48px;
+}
+
+.box {
+  border: 2px solid #ddd;
+}
+
+#drawer{
+  position: fixed;
+  z-index: 9000;
+  background: #fff;
+  top: auto; right: 0; left: 0; bottom: 0;
+  height: 30px;
+  background: #fff url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIUnC2nKLnT4or00PvyrQwrPzUZshQAOw==) no-repeat center 8px;;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#drawer .handle{
+  position: absolute;
+  top: 0; right: 0; left: 0; bottom: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+#drawer #data{
+  position: absolute;
+  top: 30px; right: 0; left: 0;
+  height:270px;
+}
+
+.usa-site-header {
+  border: none;
+}
+
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
