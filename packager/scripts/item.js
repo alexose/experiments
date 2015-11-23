@@ -1,5 +1,6 @@
 var React = require('react');
 var DragSource = require('react-dnd').DragSource;
+var DropTarget = require('react-dnd').DropTarget;
 
 var Item = React.createClass({
   render : function(){
@@ -15,17 +16,39 @@ var Item = React.createClass({
   }
 });
 
-var source = {
-  beginDrag : function(props){
-    return {};
-  },
-  endDrag : function(props){
-    return {};
-  },
-}
+var itemSource = {
+  beginDrag: function(props) {
+    return { id: props.id };
+  }
+};
+
+var itemTarget = {
+  hover: function(props, monitor) {
+    var draggedId = monitor.getItem().id;
+
+    if (draggedId !== props.id) {
+      props.moveItem(draggedId, props.id);
+    }
+  }
+};
+
+var DragSourceDecorator = DragSource('item', itemSource,    
+  function(connect, monitor) {
+    return {
+      connectDragSource: connect.dragSource(),
+      isDragging: monitor.isDragging()
+    };
+});
+
+var DropTargetDecorator = DropTarget('item', itemTarget, 
+  function(connect) {
+    return {
+      connectDropTarget: connect.dropTarget()
+    };
+});
 
 var collect = function(){
   return {};
 }
 
-module.exports = DragSource('item', source, collect)(Item);
+module.exports = DropTargetDecorator(DragSourceDecorator(Item));

@@ -3,7 +3,10 @@ var React = require('react');
 var Item = require('./item.js');
 var defaults = require('../data.json');
 
-module.exports = React.createClass({
+var dnd = require('react-dnd');
+var backend = require('react-dnd-touch-backend');
+
+var PackageBuilder = React.createClass({
 
   getInitialState : function(){
     return {
@@ -13,6 +16,15 @@ module.exports = React.createClass({
 
   getDefaultProps : function(){
     return { items : defaults };
+  },
+
+  moveItem : function(dragIndex, hoverIndex){
+    var items = this.props.items;
+    var dragItem = items[dragIndex];
+
+    this.setState(
+
+    )
   },
 
   render : function(){
@@ -37,3 +49,5 @@ module.exports = React.createClass({
     );
   }
 });
+
+module.exports = dnd.DragDropContext(backend)(PackageBuilder);
