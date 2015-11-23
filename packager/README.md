@@ -1,9 +1,9 @@
-Correspondence
-==============
+Packager
+========
 
 What is this?
 -------------
 
-This is a quick demonstration of a [Handlebars](http://handlebarsjs.com/)-backed templating engine for use by Social Security offices nationwide.
+This is a work in progress!
 
-See a live, interactive demo [here](http://alexose.github.io/experiments/correspondence/).
+Right now it demonstrates a cool build process using gulp.
