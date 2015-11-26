@@ -8,21 +8,24 @@ var Item = React.createClass({
     var isDragging = this.props.isDragging;
     var connectDragSource = this.props.connectDragSource;
 
+    var name = this.props.name,
+        type = this.props.type;
+
     return connectDragSource(
-      <li>This is an item!</li>
+      <li className="{type}">{name}</li>
     )
   }
 });
 
 var itemSource = {
   beginDrag: function(props) {
-    console.log('hwat');
     return { id: props.id };
   }
 };
 
 var itemTarget = {
   hover: function(props, monitor) {
+    console.log(props);
     var draggedId = monitor.getItem().id;
 
     if (draggedId !== props.id) {
