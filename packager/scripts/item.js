@@ -8,8 +8,6 @@ var Item = React.createClass({
     var isDragging = this.props.isDragging;
     var connectDragSource = this.props.connectDragSource;
 
-    console.log(this.props);
-
     return connectDragSource(
       <li>This is an item!</li>
     )
@@ -18,6 +16,7 @@ var Item = React.createClass({
 
 var itemSource = {
   beginDrag: function(props) {
+    console.log('hwat');
     return { id: props.id };
   }
 };
@@ -32,7 +31,8 @@ var itemTarget = {
   }
 };
 
-var DragSourceDecorator = DragSource('item', itemSource,    
+// TODO: decorators are hard to follow.  let's refactor this...
+var DragSourceDecorator = DragSource('item', itemSource, 
   function(connect, monitor) {
     return {
       connectDragSource: connect.dragSource(),
@@ -40,7 +40,7 @@ var DragSourceDecorator = DragSource('item', itemSource,
     };
 });
 
-var DropTargetDecorator = DropTarget('item', itemTarget, 
+var DropTargetDecorator = DropTarget('item', itemTarget,
   function(connect) {
     return {
       connectDropTarget: connect.dropTarget()

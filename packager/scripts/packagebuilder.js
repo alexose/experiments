@@ -4,7 +4,7 @@ var Item = require('./item.js');
 var defaults = require('../data.json');
 
 var dnd = require('react-dnd');
-var backend = require('react-dnd-touch-backend');
+var backend = require('react-dnd-touch-backend').default;
 
 var PackageBuilder = React.createClass({
 
@@ -50,4 +50,4 @@ var PackageBuilder = React.createClass({
   }
 });
 
-module.exports = dnd.DragDropContext(backend)(PackageBuilder);
+module.exports = dnd.DragDropContext(backend({ enableMouseEvents : true }))(PackageBuilder);
