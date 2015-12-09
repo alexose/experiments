@@ -12,7 +12,7 @@ var Item = React.createClass({
         type = this.props.type;
 
     return connectDragSource(
-      <li className="{type}">{name}</li>
+      <li className={type}><div className="item">{name}</div></li>
     )
   }
 });

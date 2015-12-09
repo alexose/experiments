@@ -56,3 +56,18 @@ html, body{
 .cf:after {
     clear: both;
 }
+
+ul.item-list li:before{
+  content: "";
+}
+
+ul.item-list li:after{
+  content: "";
+}
+
+ul.item-list li .item{
+  cursor: pointer;
+  border: 1px #eee solid;
+  border-radius: 5px;
+  padding: 10px;
+}

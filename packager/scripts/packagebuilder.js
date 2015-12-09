@@ -41,7 +41,6 @@ var PackageBuilder = React.createClass({
 
     return (
       <div>
-        <h1>Oh hi!</h1>
         <ul className="item-list">
           {items} 
         </ul>
