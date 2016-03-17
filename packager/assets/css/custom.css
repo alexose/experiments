@@ -4,7 +4,7 @@ html, body{
 }
 
 #main{
-  margin: 125px 40px 0;
+  margin: 128px 40px 0;
 }
 
 #menu{
@@ -70,4 +70,28 @@ ul.item-list li .item{
   border: 1px #eee solid;
   border-radius: 5px;
   padding: 10px;
+}
+
+ul.item-list li.pdf .item{ 
+  border-color: #FDEFB4; 
+}
+
+ul.item-list li.pdf .item:before{
+  content: "PDF: ";
+}
+
+ul.item-list li.template .item{ 
+  border-color: #A9DA6C; 
+}
+
+ul.item-list li.template .item:before{ 
+  content: "Template: ";
+}
+
+ul.item-list li.image .item{ 
+  border-color: #70D7FB; 
+}
+
+ul.item-list li.image .item:before{ 
+  content: "Image: ";
 }

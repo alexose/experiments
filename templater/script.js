@@ -23,6 +23,25 @@ handle.click(function(){
     .animate({ bottom : drawer.hasClass(classname) ? 400 : 30 });
 });
 
+Handlebars.registerHelper('choice', function(context, options){
+  var text = context.fn().split('\n');
+ 
+  var output = 'Your options are: ';
+  text.forEach(function(d, i){
+    if (d.length > 0){
+      output += '<br />' + (i+1) + ': ' + d;
+    }
+  });
+
+  output += '<br />';
+  return output;
+});
+
+ Handlebars.registerHelper('date', function(context, options){
+    return 'date_here';
+ });
+ 
+ Handlebars.registerPartial('specific_choice', 'Choice goes here!'); 
 
 // Start ACE editor
 var ace = require('brace');
@@ -96,7 +115,8 @@ var handler = function(e){
     } 
   }
 };
-code.on("click", handler);
+
+// code.on("click", handler);
 
 var data = ace.edit('data'),
     dses = data.getSession();
