@@ -1,0 +1,19 @@
+.animated {
+  transition: all 1s ease;
+}
+
+.fadeout{
+  opacity: 0;
+  height: 0px;
+  overflow: hidden;
+}
+
+.slidein {
+  max-height: 500px;
+  overflow: visible; 
+}
+
+.slideout {
+  max-height: 0px;
+  overflow: hidden;
+}

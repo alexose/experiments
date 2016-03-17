@@ -1,0 +1,185 @@
+html, body {
+  width: 100%; height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body > div {
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+video#background { 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  background-size: cover;
+  -webkit-filter: grayscale(100%) opacity(.1);
+  filter: grayscale(100%) opacity(.1);
+}
+
+#app {
+  font-family: 'Josefin Slab', serif;
+  position: relative;
+}
+
+h1 {
+  font-weight: 300;
+}
+
+.main-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: #eee; 
+}
+
+.main-nav ul {
+  margin: 20px 0;
+  padding: 0;
+  text-align: center;
+}
+
+.main-nav ul li {
+  display: inline;
+  margin: 10px 20px;
+}
+
+.main-nav ul li a {
+  display: inline-block;
+  color: #000;
+  text-decoration: none;
+}
+
+.page{
+  padding-bottom: 60px;
+}
+
+.page.full {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  padding: 20px;
+}
+
+.page.centered{
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  overflow: scroll;
+}
+
+.page.centered.aligntop{
+  margin-top: 5%;
+  justify-content: flex-start;
+}
+
+
+.paperdolls {
+  float: left;
+  padding: 120px;
+  text-align: center;
+  min-width: 300px;
+}
+
+.clothes {
+  position: absolute;
+  overflow: scroll;
+  right: 0; left: 30%;
+}
+
+.garment {
+  max-height: 100px;
+}
+
+.paperdoll {
+  max-height: 200px;
+}
+
+.slider-wrap{
+  padding-top: 14px;
+}
+
+.add-person{
+  cursor: pointer;
+  padding: 14px;
+}
+
+.add-person:hover{
+  color: #337ab7;
+}
+
+.title-row{
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.title-row h2{
+  margin: 0;
+}
+
+.title-row:hover h2{
+  color: #337ab7;
+}
+
+.fake-checkbox{
+  border: 2px solid #bbb;
+  height: 30px; 
+  width: 30px;
+  border-radius: 10px;
+}
+
+.fake-checkbox:after{
+  font-size: 39px;
+  margin-left: -6px;
+  margin-top: -36px; 
+  display: inline-block;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.fake-checkbox.yesyes:after{ 
+  content:"🎉";
+}
+.fake-checkbox.yesno:after{ 
+  content:"🌴";
+}
+.fake-checkbox.noyes:after{ 
+  content:"🌲";
+  }
+.fake-checkbox.nono:after{ 
+  content:"☹";
+}
+
+.toggle-advanced{
+  margin: 35px 0;
+  cursor: pointer;
+}
+
+.toggle-advanced:hover{
+  color: #337ab7;
+}
+
+.toggle-advanced:after{
+  font-size: 10px;
+  content:" ▼";
+}
+
+.toggle-advanced.closed:after{
+  content:" ▶";
+}
+
+.rsvp{
+  font-size: 20px;
+}

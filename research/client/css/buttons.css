@@ -1,0 +1,30 @@
+.btn-round {
+  background-color: #d23f31;
+  border-radius: 999em;
+  width: 45px;
+  height: 45px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  line-height: 1;
+  font-size: 36px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn-round span {
+    position: absolute;
+  left: 0;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin-top: -19px;
+  margin-left: 1px;
+  color: #FFF;
+}
+
+.green { background-color: #57A429; }
+.blue { background-color: #05ABE0;}
+.orange { background-color: #D28031; }
+
+p { margin-top: 50px; }
