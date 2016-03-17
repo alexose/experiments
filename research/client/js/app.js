@@ -2,8 +2,6 @@ var React = require('react')
 var ReactDOM = require('react-dom');
 
 var Nav = require('./nav.jsx');
-var Clothes = require('./clothes.jsx');
-var Rsvp = require('./rsvp.jsx');
 
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
@@ -26,16 +24,6 @@ var tabList = [
     name : '/',
     display : 'Home',
     component : <Home />
-  },
-  {
-    name : '/clothes',
-    display : 'Clothes',
-    component : <Clothes />
-  },
-  {
-    name : '/rsvp',
-    display : 'RSVP',
-    component : <Rsvp />
   }
 ];
 
@@ -57,10 +45,6 @@ ReactDOM.render(
   <Router history={History}>
     <Route path="/" component={App}>
       <IndexRoute component={Home}/>
-      <Route path="/rsvp" component={Rsvp}>
-        <Route path="/rsvp/:id" component={Rsvp} />
-      </Route>
-      <Route path="/clothes" component={Clothes} />
     </Route>
   </Router>,
   document.getElementById('app')
