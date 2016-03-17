@@ -2,10 +2,10 @@ var express = require('express');
 var app = express();
 var portfinder = require('portfinder');
 var log = require('npmlog');
-var config = require('config');
+var config = require('./config.js');
 var elasticsearch = require('elasticsearch');
 
-var elasticClient = new elasticsearch.Client({  
+var elasticClient = new elasticsearch.Client({ 
   host: config.elastic.host,
   log:  config.log
 });
