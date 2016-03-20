@@ -6,22 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
-    "build": "browserify -t reactify -t brfs client/js/* -o ./dist/app.js -d -v",
-    "watch": "watchify -t reactify -t brfs client/js/* -o ./dist/app.js -d -v"
+    "build": "browserify -t browserify-css -t reactify -t brfs client/js/* -o ./dist/app.js -d -v",
+    "watch": "watchify   -t browserify-css -t reactify -t brfs client/js/* -o ./dist/app.js -d -v"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexose/wedding.farm.git"
+    "url": "git+https://github.com/alexose/experiments.git"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^3.3.6",
     "brfs": "^1.4.3",
-    "edit-google-spreadsheet": "^0.2.21",
+    "browserify-css": "^0.9.1",
     "elasticsearch": "^10.1.3",
     "express": "^4.13.4",
-    "googleapis": "^2.1.7",
     "jquery": "^2.2.0",
     "npmlog": "^2.0.3",
     "portfinder": "^1.0.2",
@@ -32,6 +30,12 @@
     "react-router": "^2.0.0",
     "react-slider": "^0.6.1",
     "reactify": "^1.1.1",
-    "superagent": "^1.7.2"
+    "superagent": "^1.7.2",
+    "uswds": "^0.9.0"
+  },
+  "browserify-css": {
+    "autoInject": true,
+    "minify": true,
+    "rootDir": "."
   }
 }
