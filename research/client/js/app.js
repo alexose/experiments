@@ -8,15 +8,8 @@ var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
 var History = require('react-router').browserHistory;
 
-var Home = React.createClass({
-  render : function(){
-    return (
-      <div className="page centered">
-        <h1>Market Research Tool</h1>
-      </div>
-    )
-  }
-});
+var Home = require('./home.jsx'); 
+var About = require('./about.jsx'); 
 
 // List of navigable elements
 var tabList = [
@@ -24,6 +17,11 @@ var tabList = [
     name : '/',
     display : 'Home',
     component : <Home />
+  },
+  {
+    name : '/',
+    display : 'About',
+    component : <About />
   }
 ];
 
@@ -43,7 +41,9 @@ var App = React.createClass({
 
 ReactDOM.render(
   <Router history={History}>
-    <Route path="/" component={App}></Route>
+    <Route path="/" component={App}>
+      <IndexRoute component={Home}/> 
+    </Route>
   </Router>,
   document.getElementById('app')
 );
