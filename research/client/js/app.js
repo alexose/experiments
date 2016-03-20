@@ -10,6 +10,7 @@ var History = require('react-router').browserHistory;
 
 var Home = require('./home.jsx'); 
 var About = require('./about.jsx'); 
+var List = require('./list.jsx'); 
 
 // List of navigable elements
 var tabList = [
@@ -32,6 +33,7 @@ var App = React.createClass({
   render : function(){
     return (
       <div>
+        <List />
         {this.props.children}
         <Nav tabs={tabList} />
       </div>
@@ -44,6 +46,7 @@ ReactDOM.render(
     <Route path="/" component={App}>
       <IndexRoute component={Home}/> 
     </Route>
+    <Route path="/about" component={About} />
   </Router>,
   document.getElementById('app')
 );

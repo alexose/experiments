@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
-    "build": "browserify -t reactify -t brfs client/js/* -o ./dist/app.js -d -v",
-    "watch": "watchify   -t reactify -t brfs client/js/* -o ./dist/app.js -d -v"
+    "build": "browserify -t reactify -t brfs client/js/* -o ./client/dist/app.js -d -v",
+    "watch": "watchify   -t reactify -t brfs client/js/* -o ./client/dist/app.js -d -v"
   },
   "repository": {
     "type": "git",

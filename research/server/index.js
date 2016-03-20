@@ -10,7 +10,6 @@ var elasticClient = new elasticsearch.Client({
   log:  config.log
 });
 
-
 portfinder.getPort(function (err, port) {
   app.listen(port, function(){
     log.info('listening on port ' + port);  
@@ -18,3 +17,4 @@ portfinder.getPort(function (err, port) {
 });
 
 app.use(express.static('./client/'));
+app.use('/about', express.static('../client'));
