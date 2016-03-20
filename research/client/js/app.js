@@ -12,7 +12,7 @@ var Home = React.createClass({
   render : function(){
     return (
       <div className="page centered">
-        <h1>Are you ready to PARTY?</h1>
+        <h1>Market Research Tool</h1>
       </div>
     )
   }
@@ -43,9 +43,7 @@ var App = React.createClass({
 
 ReactDOM.render(
   <Router history={History}>
-    <Route path="/" component={App}>
-      <IndexRoute component={Home}/>
-    </Route>
+    <Route path="/" component={App}></Route>
   </Router>,
   document.getElementById('app')
 );
