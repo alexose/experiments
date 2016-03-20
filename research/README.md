@@ -10,12 +10,17 @@ In the future, we may add new interfaces to make market research easier.  Some i
   * Better, smarter ways of building templates
   * Inline sharing and collaboration tools
 
-Install:
-
+Install
+-------
     brew update && brew install elasticsearch && elasticsearch
-
-Build:
     git clone https://github.com/alexose/experiments.git
-    cd experiments/research 
+    cd experiments/research
     npm install
+
+Run
+---
+    npm start
+
+Build
+-----
     npm run watch 
