@@ -19,7 +19,7 @@ module.exports = React.createClass({
   },
   render : function(){
     return (
-      <div className="usa-grid">
+      <div className="usa-grid" style={{ background : '#fff' }}>
         <div className="usa-width-one-third">
           <h3 style={{ "margin-top" : "50px" }}>Add new market research</h3>
           <p>Upload your market research here to make it available government-wide.</p>

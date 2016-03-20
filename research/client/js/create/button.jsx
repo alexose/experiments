@@ -6,23 +6,22 @@ Modal.setAppElement('#app');
 
 var style = {
   overlay : {
-    position          : 'fixed',
-    top               : 0,
-    left              : 0,
-    right             : 0,
-    bottom            : 0,
-    backgroundColor   : 'rgba(200, 200, 200, 0.75)',
-    'box-shadow'      : '5px 5px 5px rgba(0,0,0,0.3)'
+    position: 'fixed',
+    top:      0,
+    left:     0,
+    right:    0,
+    bottom:   0,
   },
   content : {
-    position                   : 'absolute',
-    border                     : '1px solid #ccc',
-    background                 : '#fff',
-    overflow                   : 'auto',
-    WebkitOverflowScrolling    : 'touch',
-    borderRadius               : '4px',
-    outline                    : 'none',
-    padding                    : '20px'
+    position:                'absolute',
+    border:                  '1px solid #ccc',
+    background:              '#fff',
+    overflow:                'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius:            '4px',
+    outline:                 'none',
+    padding:                 '20px'
+    backgroundColor:         'rgba(200, 200, 200, 0.75)',
   }
 };
 
