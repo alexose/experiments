@@ -17,4 +17,4 @@ portfinder.getPort(function (err, port) {
   });
 });
 
-app.use(express.static('../client'));
+app.use(express.static('./client/'));
