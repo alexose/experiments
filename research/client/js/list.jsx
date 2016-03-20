@@ -27,6 +27,7 @@ var files = [
 
 // via http://stackoverflow.com/questions/3552461
 function formatDate(date){
+
   var monthNames = [
     "January", "February", "March",
     "April", "May", "June", "July",
@@ -38,12 +39,11 @@ function formatDate(date){
   var monthIndex = date.getMonth();
   var year = date.getFullYear();
 
-  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  return monthNames[monthIndex] + ' ' + day + ', ' + year;
 }
 
 module.exports = React.createClass({
   render : function(){
-    console.log('what');
     return (
       <table>
         <thead>
@@ -60,11 +60,11 @@ module.exports = React.createClass({
             files.map(function(d){
               return (
                 <tr>
-                  <th scope="row">{d.path}</th>
+                  <td><i className={ d.path.split('.')[1] }/>{d.path}</td>
                   <td>{d.description}</td>
                   <td>{d.owner}</td>
                   <td>{formatDate(d.created)}</td>
-                  <td>{formatDate(d.owner)}</td>
+                  <td>{formatDate(d.modified)}</td>
                 </tr>
               )
             })

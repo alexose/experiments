@@ -1,16 +1,28 @@
-var React = require('react')
+var React = require('react');
+var List = require('./list.jsx');
+var AddButton = require('./create/button.jsx');
 
 module.exports = React.createClass({
   render : function(){
     return (
-      <section class="usa-banner">
-        <div class="usa-grid">
-          <div class="usa-banner-content" id="main-content">
-            <h1>Market Research Tool</h1>
-            <h2 class="usa-font-lead">An open source tool for acquisition experts to organize, search, and share market research.</h2> 
+      <div>
+        <section className="usa-banner">
+          <div className="usa-grid">
+            <div className="usa-width-one-whole">
+              <div className="usa-banner-content" id="main-content">
+                <h1>Market Research Tool</h1>
+                <p className="usa-font-lead">An open source tool for acquisition experts to organize, search, and share market research.</p> 
+              </div>
+            </div>
+          </div>
+        </section>
+        <div className="usa-grid">
+          <div className="usa-width-one-whole">
+            <List />
+            <AddButton />
           </div>
         </div>
-      </section>
+      </div>
     )
   }
 });

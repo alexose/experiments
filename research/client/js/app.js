@@ -28,16 +28,10 @@ var tabList = [
 
 var App = React.createClass({
   getInitialState: function(){
-    return { tab : tabList[0] }
+    return { tab : tabList[0] };
   },
   render : function(){
-    return (
-      <div>
-        <List />
-        {this.props.children}
-        <Nav tabs={tabList} />
-      </div>
-    )
+    return this.props.children;
   }
 });
 
@@ -45,8 +39,8 @@ ReactDOM.render(
   <Router history={History}>
     <Route path="/" component={App}>
       <IndexRoute component={Home}/> 
+      <Route path="/about" component={About} />
     </Route>
-    <Route path="/about" component={About} />
   </Router>,
   document.getElementById('app')
 );
