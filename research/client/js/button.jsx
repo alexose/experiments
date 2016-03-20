@@ -20,7 +20,7 @@ var style = {
     WebkitOverflowScrolling: 'touch',
     borderRadius:            '4px',
     outline:                 'none',
-    padding:                 '20px'
+    padding:                 '20px',
     backgroundColor:         'rgba(200, 200, 200, 0.75)',
   }
 };

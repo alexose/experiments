@@ -1,6 +1,6 @@
 var React = require('react');
 var List = require('./list.jsx');
-var AddButton = require('./create/button.jsx');
+var AddButton = require('./button.jsx');
 
 module.exports = React.createClass({
   render : function(){
