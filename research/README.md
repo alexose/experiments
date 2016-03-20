@@ -15,6 +15,7 @@ Install
     brew update && brew install elasticsearch && elasticsearch
     git clone https://github.com/alexose/experiments.git
     cd experiments/research
+    cp node_modules/uswds/dist/js/uswds.min.js client/cs
     npm install
 
 Run

@@ -3,9 +3,6 @@ var ReactDOM = require('react-dom');
 
 var Nav = require('./nav.jsx');
 
-// Include CSS via browserify-css (see https://www.npmjs.com/package/browserify-css)
-var css = require('../css/main.css');
-
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
