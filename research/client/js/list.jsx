@@ -12,7 +12,7 @@ var RefinementListFilter   = SearchKit.RefinementListFilter;
 var NoHits                 = SearchKit.NoHits;
 var Hits                   = SearchKit.Hits;
 
-var sk = new SearchKit.SearchkitManager('https://' + config.elastic.host);
+var sk = new SearchKit.SearchkitManager('http://' + config.elastic.host);
 
 module.exports = React.createClass({
   render : function(){
@@ -20,33 +20,8 @@ module.exports = React.createClass({
       <div> 
         <SearchkitProvider searchkit={sk}>
           <div>
-            <div className="example-search-site__query">
-              <SearchBox
-               autofocus={true}
-               searchOnChange={true}
-               prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
-            </div>
-            <div className="example-search-site__applied-filters">
-              <SelectedFilters/>
-              <ResetFilters/>
-              <HitsStats/>
-            </div>
-            <div className="example-search-site__filters">
-              <HierarchicalMenuFilter
-                fields={["type.raw", "genres.raw"]}
-                title="Categories"
-                id="categories"/>
-              <RefinementListFilter
-                id="actors"
-                title="Actors"
-                field="actors.raw"
-                operator="AND"
-                size={10}/>
-            </div>
-            <div className="example-search-site__results">
-              <Hits hitsPerPage={10} sourceFilter={["title", "poster", "imdbId"]}/>
-              <NoHits/>
-            </div>
+              <SearchBox/>
+              <Hits hitsPerPage={100} />
           </div>
         </SearchkitProvider>
       </div>
