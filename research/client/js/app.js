@@ -12,6 +12,10 @@ var Home = require('./home.jsx');
 var About = require('./about.jsx'); 
 var List = require('./list.jsx'); 
 
+var Searchkit = require('searchkit');
+var config = require('../../config.js');
+var sk = new Searchkit.SearchkitManager(config.elastic.host);
+
 // List of navigable elements
 var tabList = [
   {
