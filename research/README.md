@@ -17,6 +17,13 @@ Install
     cd experiments/research
     npm install
 
+If you're developing with a local ElasticSearch, you'll want to add the following to your elasticsearch.yml:
+
+    http.cors.enabled : true  
+    http.cors.allow-origin : "*"
+    http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
+    http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
+
 Run
 ---
     npm start

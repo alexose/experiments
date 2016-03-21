@@ -10,7 +10,6 @@ var History = require('react-router').browserHistory;
 
 var Home = require('./home.jsx'); 
 var About = require('./about.jsx'); 
-var List = require('./list.jsx'); 
 
 var Searchkit = require('searchkit');
 var config = require('../../config.js');
