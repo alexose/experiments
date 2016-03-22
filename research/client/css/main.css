@@ -58,13 +58,25 @@ form label {
 
 .search input {
   max-width: 200px;
+  display: inline-block;
 }
 
-.search input[type="submit"]{
+.search input.sk-search-box__action{
+  display: inline-block;
   text-transform: capitalize;
+  margin: 10px;
+  padding: 14px;
 }
 
 em {
   color: green;
   font-style: normal;
+}
+
+table th:nth-child(1),
+table td:nth-child(1){
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
