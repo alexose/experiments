@@ -8,6 +8,10 @@
   clear: both;
 }
 
+form label {
+  margin-top: 1.5em;
+}
+
 .modal-content {
   background: #fff;
   border-radius: 20px;
@@ -28,4 +32,21 @@
 .modal-content .right{
   width: 500px;
   float: left;
+}
+
+.modal-content button{
+  margin: 26px 0 0 0;
+}
+
+.modal-content form .main{
+  border: 1px solid #eee;
+}
+
+.disabled {
+  color: #ccc;
+}
+
+.disabled input {
+  border: 1px solid #ccc;
+  color: #aaa;
 }
