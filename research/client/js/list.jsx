@@ -20,6 +20,7 @@ var files = [];
 var HitsTable = React.createClass({
   render : function(){
     var hits = this.props.hits;  
+    console.log(this.props.result);
 
     return (
       <table>
@@ -34,11 +35,11 @@ var HitsTable = React.createClass({
         </thead>
         <tbody>
           {
-            hits.map(function(d){
-              console.log(d);
+            hits.map(function(hit){
+              var d = hit._source;
               return (
                 <tr>
-                  <td className={d._type}></td>
+                  <td className={d.type}>{d.title}</td>
                   <td>{d.description}</td>
                   <td>{d.owner}</td>
                   <td>{format.date(d.created)}</td>
@@ -62,8 +63,8 @@ module.exports = React.createClass({
               <SearchBox/>
               <Hits 
                 hitsPerPage={50} 
-                highlightFields={["title"]} 
-                sourceFilter={["title", "owner"]} 
+                highlightFields={["title", "body"]} 
+                sourceFilter={["title", "owner", "size", "description", "modified"]} 
                 listComponent={HitsTable} />
           </div>
         </SearchkitProvider>

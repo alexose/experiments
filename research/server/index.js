@@ -3,15 +3,15 @@ var app           = express();
 var portfinder    = require('portfinder');
 var log           = require('npmlog');
 var multer        = require('multer')
-var upload        = multer({ dest: 'uploads/' })
-var config        = require('../config.js');
 var elasticsearch = require('elasticsearch');
+var extract       = require('./extract.js');
+var config        = require('../config.js');
+var upload        = multer({ dest: 'uploads/' })
 
 var client = new elasticsearch.Client({ 
   host: config.elastic.host,
   log:  config.log
 });
-
 
 portfinder.getPort(function (err, port) {
   app.listen(port, function(){
@@ -45,15 +45,24 @@ function upsert(req, res){
 
 // Save file to ElasticSearch
 function save(file, fields, callback){
-  client.create({
+  extract(file.path, file.mimetype, function(body){
+    
+    var obj = {
       index:       'reports',
-      type:        file.mimetype, //TODO: is this correct?
-      body:        file,
-      size:        file.size,
-      title:       fields.title,
-      owner:       fields.owner,
-      description: fields.description
-  }, function(err, result){
-    callback(err);
-  });  
+      type:        'document',
+      id:          file.filename,
+      body: {
+        title:       fields.title,
+        mimetype:    file.mimetype, //TODO: is this correct?
+        size:        file.size,
+        body:        body,
+        owner:       fields.owner,
+        description: fields.description
+      }
+    };
+    
+    client.create(obj, function(err, result){
+      callback(err);
+    }); 
+  });
 }
