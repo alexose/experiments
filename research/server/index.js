@@ -46,9 +46,13 @@ function upsert(req, res){
 // Save file to ElasticSearch
 function save(file, fields, callback){
   client.create({
-      index: 'reports',
-      type:  file.mimetype, //TODO: is this correct?
-      body:  file,
+      index:       'reports',
+      type:        file.mimetype, //TODO: is this correct?
+      body:        file,
+      size:        file.size,
+      title:       fields.title,
+      owner:       fields.owner,
+      description: fields.description
   }, function(err, result){
     callback(err);
   });  

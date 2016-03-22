@@ -17,6 +17,8 @@ Install
     cd experiments/research
     npm install
 
+You also need to install the [mapper-attachments plugin](https://www.elastic.co/guide/en/elasticsearch/plugins/current/mapper-attachments.html).
+
 If you're developing with a local ElasticSearch, you'll want to add the following to your elasticsearch.yml:
 
     http.cors.enabled : true  
