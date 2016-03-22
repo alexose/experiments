@@ -1,6 +1,7 @@
 var React     = require('react');
 var SearchKit = require('searchkit');
 var config    = require('../../config.js');
+var format    = require('../utils/format.js');
 
 var SearchkitProvider      = SearchKit.SearchkitProvider;
 var SearchBox              = SearchKit.SearchBox;
@@ -14,14 +15,56 @@ var Hits                   = SearchKit.Hits;
 
 var sk = new SearchKit.SearchkitManager('http://' + config.elastic.host);
 
+var files = [];
+
+var HitsTable = React.createClass({
+  render : function(){
+    var hits = this.props.hits;  
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">File</th>
+            <th scope="col">Description</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Created</th>
+            <th scope="col">Modified</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            hits.map(function(d){
+              console.log(d);
+              return (
+                <tr>
+                  <td className={d._type}></td>
+                  <td>{d.description}</td>
+                  <td>{d.owner}</td>
+                  <td>{format.date(d.created)}</td>
+                  <td>{format.date(d.modified)}</td>
+                </tr>
+              )
+            })
+          }
+        </tbody>
+      </table>
+    )
+  }
+});
+
 module.exports = React.createClass({
   render : function(){
     return (
       <div> 
         <SearchkitProvider searchkit={sk}>
-          <div>
+          <div className="search">
               <SearchBox/>
-              <Hits hitsPerPage={100} />
+              <Hits 
+                hitsPerPage={50} 
+                highlightFields={["title"]} 
+                sourceFilter={["title", "owner"]} 
+                listComponent={HitsTable} />
           </div>
         </SearchkitProvider>
       </div>

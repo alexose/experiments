@@ -8,6 +8,10 @@
   clear: both;
 }
 
+#app form {
+  max-width: 800px;
+}
+
 form label {
   margin-top: 1.5em;
 }
@@ -49,4 +53,13 @@ form label {
 .disabled input {
   border: 1px solid #ccc;
   color: #aaa;
+}
+
+
+.search input {
+  max-width: 200px;
+}
+
+.search input[type="submit"]{
+  text-transform: capitalize;
 }
