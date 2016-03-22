@@ -1,4 +1,5 @@
 var React = require('react');
+var superagent = require('superagent');
 
 module.exports = React.createClass({
   getInitialState : function(){
@@ -6,30 +7,68 @@ module.exports = React.createClass({
   },
   handleFile: function(e) {
     var self = this;
-    var reader = new FileReader();
     var file = e.target.files[0];
 
     this.setState({
       modified: formatDate(file.lastModified),
       size:     formatSize(file.size),
-      filename: file.name
+      filename: file.name,
+      file:     file
     });
-
-    console.log(file);
-
-    reader.onload = function(upload) {
-      self.setState({
-        data_uri: upload.target.result,
-      });
-    }
-
-    reader.readAsDataURL(file);
+  },
+  showErrors : function(errors){
+    console.log('lots of errorz');
   },
   handleSubmit : function(e){
-    console.log(e, this.refs);
-
-    // Validate form
     e.preventDefault();
+    
+    var formData = new FormData(),
+        errors = {},
+        fields = {
+          file:        this.state.file,
+          title:       this.state.title || this.state.filename,
+          description: this.state.description || '',
+          owner:       this.state.owner
+        };
+
+    // Validate form and fill formData
+    if (fields.file instanceof File) {
+      formData.append('file', fields.file);
+    } else {
+      errors.file = "Please choose a file.";
+    }
+
+    if (fields.title){
+      formData.append('title', fields.title);
+    } else {
+      errors.title = "Please provide a title."; 
+    }
+
+    formData.append('description', fields.description);
+    
+    if (fields.owner){
+      formData.append('owner', this.state.owner || '');
+    } else {
+      errors.title = "Please provide an owner."; 
+    }
+
+    if (Object.keys(errors).length === 0){
+      superagent.post('/api/report')
+        .send(formData)
+        .end(function(err, response){
+          this.props.closeModal();
+        }.bind(this)); 
+    } else {
+      this.showErrors(errors);
+    }
+
+    console.log(this);
+
+  },
+  handleChange : function(e){
+    var obj = {};
+    obj[e.target.name] = e.target.value;
+    this.setState(obj);
   },
   render : function(){
     return (
@@ -57,13 +96,13 @@ module.exports = React.createClass({
                 </div>
 
                 <label htmlFor="title">Title <span className="usa-additional_text">Required</span></label>
-                <input id="title" name="title" type="text" placeholder={this.state.filename} />
+                <input onChange={this.handleChange} id="title" name="title" type="text" placeholder={this.state.filename} />
                 
                 <label htmlFor="description">Description</label>
-                <input id="description" name="description" type="text" />
+                <input onChange={this.handleChange} id="description" name="description" type="text" />
 
                 <label htmlFor="owner">Owner <span className="usa-additional_text">Required</span></label>
-                <input id="owner" name="owner" type="text" required="" aria-required="true" />
+                <input onChange={this.handleChange} id="owner" name="owner" type="text" required="" aria-required="true" />
 
               </fieldset>
 

@@ -32,7 +32,7 @@
     "react-slider": "^0.6.1",
     "reactify": "^1.1.1",
     "searchkit": "^0.8.3",
-    "superagent": "^1.7.2",
+    "superagent": "^1.8.2",
     "uswds": "^0.9.0"
   }
 }

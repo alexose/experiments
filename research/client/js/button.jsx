@@ -32,12 +32,15 @@ module.exports = React.createClass({
     e.preventDefault();
     this.setState({ modalIsOpen: true });
   },
+  closeModal : function(){
+    this.setState({ modalIsOpen : false });
+  },
   render : function(){
     return (
       <div>
         <button onClick={this.handleClick} className="usa-button-big" type="button">Add a report</button>
         <Modal isOpen={this.state.modalIsOpen} style={style}>
-          <Form />
+          <Form closeModal={this.closeModal} />
         </Modal>
       </div>
     )
