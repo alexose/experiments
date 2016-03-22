@@ -1,0 +1,31 @@
+.cf:before,
+.cf:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.cf:after {
+  clear: both;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-content form {
+  text-align: left;
+}
+
+.modal-content .left{
+  width: 280px;
+  float: left;
+  margin: 0 40px;
+}
+
+.modal-content .right{
+  width: 500px;
+  float: left;
+}

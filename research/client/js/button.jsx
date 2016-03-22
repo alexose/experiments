@@ -11,17 +11,16 @@ var style = {
     left:     0,
     right:    0,
     bottom:   0,
+    backgroundColor:         'rgba(200, 200, 200, 0.75)'
   },
   content : {
     position:                'absolute',
     border:                  '1px solid #ccc',
-    background:              '#fff',
     overflow:                'auto',
     WebkitOverflowScrolling: 'touch',
-    borderRadius:            '4px',
     outline:                 'none',
     padding:                 '20px',
-    backgroundColor:         'rgba(200, 200, 200, 0.75)',
+    background:              'none'
   }
 };
 
