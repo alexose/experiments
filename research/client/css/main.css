@@ -63,3 +63,8 @@ form label {
 .search input[type="submit"]{
   text-transform: capitalize;
 }
+
+em {
+  color: green;
+  font-style: normal;
+}
