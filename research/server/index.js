@@ -45,7 +45,7 @@ function upsert(req, res){
 
 // Save file to ElasticSearch
 function save(file, fields, callback){
-  extract(file.path, file.mimetype, function(body){
+  extract(file.path, file.mimetype, function(body, mimetype){
     
     var obj = {
       index:       'reports',
@@ -53,7 +53,7 @@ function save(file, fields, callback){
       id:          file.filename,
       body: {
         title:       fields.title,
-        mimetype:    file.mimetype, //TODO: is this correct?
+        mimetype:    mimetype,
         size:        file.size,
         body:        body,
         owner:       fields.owner,

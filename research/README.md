@@ -1,7 +1,7 @@
 Market Research
 ===============
 
-This is an experiment in improving the state of market research in government aquisition.
+This is an experiment in improving the state of market research in government acquisition.
 
 We've identified a need for contract officers and acquisition experts to share their research among each other and between agencies.  Towards this goal, we've built a simple way to upload Microsoft Word documents and search their contents.
 

@@ -43,7 +43,7 @@ var HitsTable = React.createClass({
 
               return (
                 <tr>
-                  <td className={d.type} title={d.description} dangerouslySetInnerHTML={{ "__html" : title }} />
+                  <td className={d.mimetype} title={d.description} dangerouslySetInnerHTML={{ "__html" : title }} />
                   <td>
                   {
                     body.map(function(d){
@@ -79,7 +79,7 @@ module.exports = React.createClass({
               <Hits 
                 hitsPerPage={50} 
                 highlightFields={["title", "body"]} 
-                sourceFilter={["title", "owner", "size", "description", "modified", "result", "highlight"]}
+                sourceFilter={["title", "owner", "size", "description", "modified", "mimetype"]}
                 listComponent={HitsTable} />
           </div>
         </SearchkitProvider>
