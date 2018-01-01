@@ -11,6 +11,7 @@ BOM
 ---
 
 | Quantity | Item | Price |
+| -------- | ---- | ----- |
 | 1x | [ESP-01](https://www.google.com/search?q=esp-01&tbm=shop) | $1.74 |
 | 1x | [18650 cell](https://www.google.com/search?q=18650&tbm=shop) | $1.00 |
 | 1x | * [18650 holder](https://www.google.com/search?q=18650%20holder&tbm=shop) | $0.50 |
