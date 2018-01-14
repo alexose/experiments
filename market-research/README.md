@@ -5,8 +5,6 @@ This is an experiment in improving the state of market research in government ac
 
 We've identified a need for acquisition experts to be able to share their research more freely.  Towards this goal, we've built a simple way to upload and search documents at scale.
 
-Try the [live demo](http://market-research.alexose.com/)!
-
 Notes
 -----
 We use [tika](http://tika.apache.org/1.12/gettingstarted.html) to extract text from a variety of sources.  This could also be handled on the ElasticSearch side via the [mapper-attachments](https://www.elastic.co/guide/en/elasticsearch/plugins/master/mapper-attachments.html) plugin.  However, we expect to launch this to Amazon's hosted ElasticSearch, which doesn't support plugins at this time.
