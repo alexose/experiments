@@ -1,0 +1,55 @@
+
+img{
+    float:left;
+    width: 32%;
+}
+img.bar{
+    width: 96%;
+}
+
+body {
+    width: 99%;
+}
+
+body.resized {
+    width: 2450px;
+}
+
+body.resized img{
+    width: 800px;
+}
+
+body.resized img.bar{
+    width: 2400px;
+}
+
+.frame{
+    display: none;
+}
+
+#frame-0{
+    display: block;
+}
+
+.message{
+    margin-left: 2em;
+    float: right;
+}
+
+h1{
+    float:left;
+}
+
+div#spinner{
+    float:left;
+    background-image:url('spinner.gif');
+    display:none;
+    height: 36px;
+    width: 36px;
+    margin: 17px 40px;
+}
+
+fieldset {
+    border : 0;
+    margin-top: 16px;
+}
