@@ -1,6 +1,327 @@
 <html>
-<textarea rows='6' cols='100'></textarea>
-<div id="container"></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="script.js"></script>
+  <head>
+    <style>
+      .spinner{
+        float: left;
+        background-image: url('spinner.gif');
+        display: none;
+        height: 36px;
+        width: 36px;
+        margin: 17px 40px;
+      }
+      .photo {
+        float: left;
+        max-height: 300px;
+        max-width: 300px;
+        padding: 20px;
+        cursor: pointer;
+      }
+      .progress {
+        background: #ddd;
+        height: 30px;
+        width: 0;
+        transition: width 1s ease-in-out;
+      }
+
+      .photo:hover{
+        background: #ddd;
+      }
+
+      #slideshow{
+        position: fixed;
+        top: 0; bottom: 0; right: 0; left: 0;
+        background: rgba(0,0,0,0.9);
+      }
+      .visible {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.2s linear;
+      }
+      .hidden {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s 0.2s, opacity 0.2s linear;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="spinner"></div>
+    <div class="progress"></div>
+    <div id="container">
+    </div>
+    <div id="slideshow" class="hidden"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+
+    window.onhashchange = load;
+
+    load();
+
+    function load(){
+
+      var ids = window.location.hash.substr(1).split();
+
+      $("#container").empty();
+
+      if (ids.length && ids[0] !== ''){
+        $(document).trigger('progress', [0]);
+
+        getSession(function(args){
+          getIds(args, ids);
+        });
+      } else {
+        var str = '<ul>Fun links to get you started:'
+          +'<li><a href="#2957795">2775 Birdseye Creek Road</a></li>'
+          +'<li><a href="#2957733">1528 Grays Creek Road</a></li>'
+          +'<li><a href="#2957728">1546 Grays Creek Road</a></li>'
+        +'</ul>';
+
+        $('#container').append(str);
+      }
+    }
+
+    function getSession(cb){
+
+      // Get correct link from front page
+      var json = {
+        url: "http://somls.rapmls.com",
+        selector: "$('a').attr('href')",
+        engine: 'jquery'
+      };
+      send(json, function(response){
+
+        $(document).trigger('progress', [25]);
+
+        var url = response;
+
+        // Get ARGUMENTS from form
+        send({ url : url }, function(response){
+
+          $(document).trigger('progress', [50]);
+
+          var dom = $(response),
+            args = dom.find('input[name="ARGUMENTS"]').val();
+
+          cb(args);
+        });
+      });
+    }
+
+    function getIds(args, arr){
+
+      var body = 'APPNAME=Sooregon&PRGNAME=MLSSearchSaveCriteria&ARGUMENTS={{arguments}}&SubmitInProcess=Yes&IsPublic=Y&IsFranchise=N&Submit_Value=&Search_Type=PB&DotNet_CP_Search=&CP_Search_Name=&DOTNET_SessionNumber=000000000&CP_Encrypted_String=&CP_hidEntryPoint=&CP_KeyRid=1&CP_SID=&CP_hidMLS=SORE&IsClientPortal=N&MLS_Origin=&submit=Search&Prop_Count=5&Single_PT_Selected=&Prop_Types_String=RESI%2CLOTL%2CINCP%2CCOMM%2CMOBL&Prop_Types_Amenity_String=Y%2CY%2CY%2CY%2CY&Prop_Types_Auction_String=&Prop_Types_Measurement_String=E%2CE%2CE%2CE%2CE&PT_Measurement_Default_String=A%2CA%2CA%2CA%2CA&Prop_Subtype_Count_RESI=7&Prop_Subtype_Count_LOTL=6&Prop_Subtype_Count_INCP=5&Prop_Subtype_Count_COMM=1&Prop_Subtype_Count_MOBL=2&Prop_Subtype_RESI_0001_X=RURL&Prop_Subtype_RESI_0002_X=COND&Prop_Subtype_RESI_0003_X=RESI&Prop_Subtype_RESI_0004_X=FARM&Prop_Subtype_RESI_0005_X=HTBB&Prop_Subtype_RESI_0006_X=NEWC&Prop_Subtype_RESI_0007_X=TWNS&Prop_Subtype_LOTL_0001_X=LOTL&Prop_Subtype_LOTL_0002_X=VLND&Prop_Subtype_LOTL_0003_X=UNIM&Prop_Subtype_LOTL_0004_X=INDU&Prop_Subtype_LOTL_0005_X=MUTF&Prop_Subtype_LOTL_0006_X=SSVS&Prop_Subtype_INCP_0001_X=DUPL&Prop_Subtype_INCP_0002_X=PLX3&Prop_Subtype_INCP_0003_X=PLX4&Prop_Subtype_INCP_0004_X=PLX5&Prop_Subtype_INCP_0005_X=MSFR&Prop_Subtype_MOBL_0001_X=INPK&Prop_Subtype_MOBL_0002_X=OLLD&IsRegion=N&RegionLabel=&RegionText=Click+the+icon+for+selections.&AreaText=Click+the+icon+for+selections.&AreaText2=Select+one++before+selecting+Areas.&Regions_PB=&Areas_PB=Click+the+icon+for+selections.&AreaLabel=Area&Region_Fill_In_5=&Area_Fill_In_5=&Region_Fill_In_6=&Area_Fill_In_6=&Region_Fill_In_7=&Area_Fill_In_7=&Region_Fill_In_8=&Area_Fill_In_8=&Region_Fill_In_9=&Area_Fill_In_9=&Enforce_Area_To_City=N&Area_Fill_In=&CityText=Click+the+icon+for+selections.&Cities_PB=Click+the+icon+for+selections.&City_Fill_In=&Zip_Fill_In=&Price_From_M1=&Price_From_M2=000&Price_Thru_M1=&Price_Thru_M2=000&Bedrooms_From=+&Bedrooms_Thru=+&Bathrooms_From=+&Bathrooms_Thru=+&Bathrooms_From_F=+&Bathrooms_Thru_F=+&Bathrooms_From_H=+&Bathrooms_Thru_H=+&Structure_Square_Feet_From=&Structure_Square_Feet_Thru=&Lot_Size_From=&Lot_Size_Thru=&Lot_Measurement=A&Listing_Number_1={{id1}}&Listing_Number_2={{id2}}&Listing_Number_3={{id3}}&Listing_Number_4={{id4}}&Listing_Number_5={{id5}}'
+
+      body = body.replace('{{arguments}}', args);
+
+      for (var i=0; i<=4; i++){
+        var id = arr[i] || '';
+        body = body.replace('{{id' + (i+1) + '}}', id);
+      };
+
+      var json = {
+        url:    "http://somls.rapmls.com/scripts/mgrqispi.dll",
+        method:   "POST",
+        body:   body,
+        cache:    false,
+        debug:    true
+      };
+
+      send(json, function(response){
+
+        $(document).trigger('progress', [75]);
+
+        var dom = $(response),
+          links = dom.find('a:contains(View Details)'),
+          requests = [],
+          body = 'APPNAME=Sooregon&PRGNAME=MLSPropertyDetail&{{arguments}}&VCR_String={{vcr_string}}&VCR_RID_String={{vcr_rid_string}}&Listing_Cart_Count=0&Listing_RID={{rid}}&Section_Type=&IDXSearchType=';
+        
+        links = links.map(function(){ return $(this).attr('href'); });
+
+        links.each(function(i, link){
+
+          // get rID
+          var rid = $.trim(link.split(',')[1])
+
+          // Build ARGUMENTS
+          var current = dom.find('input[name="ARGUMENTS"]').val().split(','),
+            updated = [current[0], '-N' + rid, '-N0', 'A', current[1]],
+            args = 'ARGUMENTS=' + updated.join(',');
+
+          // Get VCR string
+          var vcr = dom.find('input[name="VCR_String"]').val();
+
+          // Construct request
+          var request = body
+            .replace('{{arguments}}', args)
+            .replace('{{vcr_string}}', vcr)
+            .replace('{{vcr_rid_string}}', rid)
+            .replace('{{rid}}', rid);
+
+          requests.push(request);
+        });
+
+        if (links.length === 0){
+          alert('No properties found.  Are you sure you have the right ID#?');
+          $(document).trigger('progress', [100]);
+        }
+
+        showIds(requests);
+      });
+    }
+
+    function showIds(requests){
+
+      for (var i in requests){
+
+        var json = {
+          url:    "http://somls.rapmls.com/scripts/mgrqispi.dll",
+          method:   "POST",
+          body:   requests[i],
+          cache:    false,
+          debug:    true
+        };
+
+        send(json, function(response){
+
+          $(document).trigger('progress', [100]);
+
+          var container,
+            html = response,
+            dom = $(html);
+
+          console.log(html);
+
+          var selectors = [ '.PodBG.PodTextS table', '#Remarks'];
+
+          selectors.forEach(function(d){
+            dom.find(d).attr('style', '').appendTo('#container');
+          });
+
+          for (var i=3; i<15; i++){
+            var el = dom.find('td.sBlackText').eq(i).parent().clone().appendTo('#container');
+            el.find('td').first().width('10%');
+          }
+
+          // Match all URLS
+          var urls = html.match(/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm);
+
+          // Strip out all bigphoto urls
+          urls = urls
+            .filter(function(d){ return d.indexOf('bigphoto') !== -1; })
+            .map(function(d){ return d.split('?')[0]; });
+
+          // Dedupe
+          urls = urls.filter(function(d, i) { return urls.indexOf(d) == i; });
+
+          urls.forEach(function(d){
+            var img = $('<a href="' + d + '"><img src=' + d + ' class="photo"></a>')
+              .click(function(evt){
+                evt.preventDefault();
+                $(document).trigger('slideshow:show', d);
+              });
+
+            $('#container').append(img);
+          });
+
+          // Update available slideshow urls
+          $(document).trigger('slideshow:urls', [urls]);
+        });
+      }
+    }
+
+    function send(json, cb){
+
+      console.log(json);
+
+      var string = btoa(JSON.stringify(json));
+
+      $.ajax({
+        url : "http://sieve.alexose.com?callback=?",
+        data : { json : string },
+        dataType : "jsonp",
+        success: cb
+      });
+    }
+
+    function toJSON(string){
+      var pairs = string.split('&');
+
+      var result = {};
+      pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+      });
+
+      return JSON.parse(JSON.stringify(result));
+    }
+
+    $(document).bind('progress', function(evt, val){
+      var percent = val + '%';
+      $('.progress').width(percent);
+    });
+
+    var slideshow;
+    $(document).bind('slideshow:urls', function(evt, urls){
+      slideshow = urls;
+    });
+
+    $(document).bind('slideshow:show', function(evt, url){
+
+      var main = $('#slideshow').empty().attr('class', 'visible');
+
+      var fs = $('<img src="' + url + '">')
+        .css({
+          position: 'absolute',
+          margin: 'auto',
+          top: 0, bottom: 0, left:0, right:0,
+          'max-height': '80%'
+        })
+        .appendTo(main);
+
+      main.click(function(){
+        $(document).trigger('slideshow:hide');
+      });
+
+      fs.click(function(evt){
+        evt.stopPropagation;
+      });
+
+      $(document).bind('keydown.slideshow', function(evt){
+        var k = evt.keyCode,
+          idx = slideshow.indexOf(url);
+
+        if (k == 27 || k == 37 || k == 38 || k == 39 || k == 40){
+          evt.preventDefault();
+        }
+
+        if (k == 27){ // Esc
+          $(document).trigger('slideshow:hide');
+        } else if (k == 37){ // Left
+          var prev = slideshow[idx-1];
+          if (prev){
+            fs.attr('src', prev);
+          }
+          url = prev;
+        } else if (k == 38){ // Up
+
+        } else if (k == 39){ // Right
+          var next = slideshow[idx+1];
+          if (next){
+            fs.attr('src', next);
+            url = next;
+          }
+        } else if (k == 40){ // Down
+
+        };
+      });
+    });
+
+    $(document).bind('slideshow:hide', function(evt){
+      $('#slideshow').attr('class', 'hidden');
+      $(document).unbind('keypress.slideshow');
+    });
+
+    </script>
+  </body>
 </html>
