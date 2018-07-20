@@ -100,7 +100,7 @@ $(document).ready(function(){
     }
 
     // Footer functionality
-    $('#container').click(function(){
+    $('body').click(function(){
         $('body').toggleClass('resized');
     });
 });
