@@ -49,7 +49,7 @@ $(document).ready(function(){
 
         $('#spinner').show();
 
-        var loc = window.location.hash,
+        var loc = window.location.hash.split('#').join(''),
             address = encodeURIComponent(loc);
 
         // Find info via Sieve
