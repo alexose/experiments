@@ -13,10 +13,9 @@ First, ensure that you have [Node.js](https://nodejs.org/en/download/) installed
 
     git clone https://github.com/alexose/sense2influx
     cd sense2influx
-    cp credentials.js.example credentials.js
     cp config.js.example config.js
 
-You'll want to edit credentials.js to reflect your username and password, then edit config.js to reflect the correct URL for InfluxDB.  Then:
+You'll want to edit config.js to reflect your username, password, and relevant InfluxDB settings.
 
     node index.js
 
