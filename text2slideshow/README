@@ -1,0 +1,8 @@
+text2slideshow
+==============
+
+Takes an abritrary string and sets it to a beautiful slideshow.  Primarily used to make fun of people.
+
+Usage:
+
+    node index.js "Governor Jerry Brown must allow the Free Flow of the vast amounts of water coming from the North and foolishly being diverted into the Pacific Ocean."
