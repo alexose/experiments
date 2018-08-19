@@ -3,7 +3,7 @@ const pos = require('pos');
 const request = require('superagent');
 const jsonata = require('jsonata');
 
-if (process.argv.length < 2) {
+if (process.argv.length < 3) {
   console.log('Usage:');
   process.exit();
 } else {
@@ -43,9 +43,8 @@ function begin(arr){
   const promises = searches.map(d => new Promise((resolve, reject) => {
     getImage(d, resolve);
   }));
-
   Promise
-    .all(promises)
+    .all([promises[0]])
     .then(results => {
       console.log(results);
     });
@@ -54,6 +53,7 @@ function begin(arr){
 
 // TODO: caching
 async function getImage(term, cb){
+  console.log(term);
   request
     .get(`https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=${term}&srnamespace=6&srinfo=totalhits%7Csuggestion&srlimit=10&generator=images&titles=Wikipedia%3APublic_domain&gimlimit=1`)
     .then(res => {
@@ -64,7 +64,7 @@ async function getImage(term, cb){
           const url = jsonata('**.url').evaluate(res.body);
           request
             .get(url)
-            .then(res => cb(res.text))
+            .then(res => cb(res.body))
         });
     });
 }
