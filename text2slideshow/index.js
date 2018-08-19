@@ -32,11 +32,13 @@ function begin(arr){
     if (part === 'NN' && searches[index].length < 3) {
       searches[index].push(arr[0]);
     }
+    console.log(part);
     // if ((part === 'VB' || part === 'IN' || part === 'CC') && words[index].length > 4){
     if (
-      ((part === 'NN' || part === 'IN' || part === 'CC') && words[index].length > 6)
+      ( part === '.' )
       || ( part === '!' )
-      || (( part === '.' ) && words[index].length > 4)
+      || ( part === ':' )
+      || (( part === ',' ) && words[index].length > 8)
     ){
       if (i < tagged.length-1) {
         words.push([]);
