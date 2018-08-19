@@ -279,6 +279,10 @@ formidable@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/formidable/-/formidable-1.2.1.tgz#70fb7ca0290ee6ff961090415f4b3df3d2082659"
 
+free-google-image-search@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/free-google-image-search/-/free-google-image-search-1.0.0.tgz#7a6278be8edc646ed96a712251db32671724c815"
+
 fs-constants@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs-constants/-/fs-constants-1.0.0.tgz#6be0de9be998ce16af8afc24497b9ee9b7ccd9ad"

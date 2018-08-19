@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "free-google-image-search": "^1.0.0",
     "jsonata": "^1.5.4",
     "mkdirp": "^0.5.1",
     "pos": "^0.4.2",

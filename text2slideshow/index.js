@@ -147,10 +147,17 @@ async function getImage(term, i){
         data: {title},
         selector: '.url'
       }, result => {
-        request.get(result[0])
-          .then(d => {
-            resolve({i, buffer: d.body});
-          });
+        if (result[0]){
+          request.get(result[0])
+            .then(d => {
+              resolve({i, buffer: d.body});
+            });
+        } else {
+          request.get('https://i.kym-cdn.com/entries/icons/original/000/018/489/nick-young-confused-face-300x256-nqlyaa.jpg')
+            .then(d => {
+              resolve({i, buffer: d.body});
+            });
+        }
       });
     });
   });
