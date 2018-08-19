@@ -4,6 +4,7 @@ const sharp = require('sharp');
 const crypto = require('crypto');
 const mkdirp = require('mkdirp');
 const videoshow = require('videoshow')
+const request = require('superagent');
 const sieve = require('sievejs');
 
 if (process.argv.length < 3) {
@@ -22,56 +23,76 @@ function begin(arr){
   // via https://stackoverflow.com/questions/21321044
   const lexed = new pos.Lexer().lex(arr.join(' '));
   const tagged = new pos.Tagger().tag(lexed);
-  
-  // Extract verb combos
-  const words = [[]];
   const searches = [[]];
+  const words = [[]];
   let index = 0;
-  tagged.forEach(arr => {
+  tagged.forEach((arr, i) => {
     const part = arr[1].substr(0,2);
     words[index].push(arr[0]);
     if (part === 'NN' && searches[index].length < 3) {
       searches[index].push(arr[0]);
     }
     // if ((part === 'VB' || part === 'IN' || part === 'CC') && words[index].length > 4){
-    if ((part === 'NN' || part === 'IN' || part === 'CC') && words[index].length > 6){
-      words.push([]);
-      searches.push([]);
+    if (
+      ((part === 'NN' || part === 'IN' || part === 'CC') && words[index].length > 6)
+      || ( part === '!' )
+      || (( part === '.' ) && words[index].length > 4)
+    ){
+      if (i < tagged.length-1) {
+        words.push([]);
+        searches.push([]);
+      }
 
       // If there's no nouns in the slide, just use all the text?
       if (!searches[index].length){
-        searches[index].push(words[index].join(' '));
+        searches[index].push(smoosh(words[index]));
       }
       index++;
     }
   });
 
-  const slides = words.map(arr => arr.join(' '));
-  const promises = searches.map((d, i) => new Promise((resolve, reject) => {
-    getImage(d, i, resolve, reject);
-  }));
-  const images = [];
-  Promise
-    .all(promises)
-    .then(results => {
+  const slides = words.map(arr => smoosh(arr));
+
+  promiseSerial(
+    searches,
+    (d, i) => () => {
+      console.log(`Getting ${i+1} of ${searches.length}... "${d.join(' ')}"`);
+      return getImage(d, i);
+    },
+    (results) => {
+
       // Resize all images and write to disk
-      results.forEach(results => {
-        
-        const image = `./images/${hash}/${results.i}.jpg`;
+      const images = [];
+      results.forEach(result => {
+        const image = `./images/${hash}/${result.i}.jpg`;
         images.push({
           path: image,
-          caption: words[results.i] 
+          caption: words[result.i].join(' ') 
         });
 
-        sharp(results.buffer)
-          .resize(320, 240)
+        sharp(result.buffer)
+          .resize(640, 480)
           .max()
+          .crop()
           .toFormat('jpeg')
           .toFile(image)
       });
 
-      makeSlideshow(hash, images);
-    });
+      setTimeout(() => {
+        console.log('Creating slideshow...');
+        makeSlideshow(hash, images)
+      }, 2000);
+    }
+  );
+}
+
+function smoosh(arr){
+  let str = arr.join(' ');
+  str = str.split(' .').join('');
+  str = str.split(' !').join('');
+  str = str.split(' -').join('');
+  str = str.split(' \' ').join('');
+  return str;
 }
 
 async function makeSlideshow(hash, images){
@@ -83,9 +104,13 @@ async function makeSlideshow(hash, images){
     transitionDuration: 1, // seconds
     videoBitrate: 1024,
     videoCodec: 'libx264',
-    size: '320x?',
+    size: '640x?',
     audioBitrate: '128k',
     audioChannels: 2,
+    subtitleStyle: {
+      Fontsize: '50',
+      PrimaryColour: '16777215'
+    },
     format: 'mp4',
     pixelFormat: 'yuv420p'
   }
@@ -93,13 +118,6 @@ async function makeSlideshow(hash, images){
   videoshow(images, videoOptions)
     .audio('song.mp3')
     .save(`./videos/${hash}.mp4`)
-    .on('start', function (command) {
-      console.log('ffmpeg process started:', command)
-    })
-    .on('error', function (err, stdout, stderr) {
-      console.error('Error:', err)
-      console.error('ffmpeg stderr:', stderr)
-    })
     .on('end', function (output) {
       console.error('Video created in:', output)
     })
@@ -107,24 +125,47 @@ async function makeSlideshow(hash, images){
 
 
 // TODO: caching
-async function getImage(term, i, cb, reject){
-  sieve({
-    url: 'https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch={{term}}&srnamespace=6&srinfo=totalhits%7Csuggestion&srlimit=10&generator=images&titles=Wikipedia%3APublic_domain&gimlimit=1',
-    data: {term},
-    selector: '.title'
-  }, result => {
-    const title = result[0];
+async function getImage(term, i){
+  return new Promise(resolve => {
     sieve({
-      url: 'https://commons.wikimedia.org/w/api.php?action=query&titles={{title}}&prop=imageinfo&iiprop=url&format=json',
-      data: {title},
-      selector: '.url',
+      url: 'https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch={{term}}&srnamespace=6&srinfo=totalhits%7Csuggestion&srlimit=10&generator=images&titles=Wikipedia%3APublic_domain&gimlimit=1',
+      data: { term: encodeURIComponent(term)},
+      selector: '.title'
     }, result => {
-      console.log(result[1][0]);
+      // Find the first result with 'jpg' in the title
+      const jpeg = result.find(d => d.includes('.jpg') || d.includes('.jpeg'));
+      if (!jpeg) {
+        request.get('https://i.kym-cdn.com/entries/icons/original/000/018/489/nick-young-confused-face-300x256-nqlyaa.jpg')
+          .then(d => {
+            resolve({i, buffer: d.body});
+          });
+        return;
+      }
+      const title = encodeURIComponent(jpeg);
       sieve({
-        url: result[1][0]
+        url: 'https://commons.wikimedia.org/w/api.php?action=query&titles={{title}}&prop=imageinfo&iiprop=url&format=json',
+        data: {title},
+        selector: '.url'
       }, result => {
-        cb({i, buffer: result}); 
+        request.get(result[0])
+          .then(d => {
+            resolve({i, buffer: d.body});
+          });
       });
     });
   });
+}
+
+// via https://hackernoon.com/7aac18c4431e
+function promiseSerial(arr, step, callback) {
+  const funcs = arr.map(step);
+
+  const promiseList = funcs =>
+    funcs.reduce((promise, func) =>
+      promise.then(result =>
+        func().then(Array.prototype.concat.bind(result))),
+        Promise.resolve([]))
+
+  return promiseList(funcs)
+    .then(callback)
 }
