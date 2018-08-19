@@ -5,7 +5,15 @@ const crypto = require('crypto');
 const mkdirp = require('mkdirp');
 const videoshow = require('videoshow')
 const request = require('superagent');
-const search = require('g-i-s');
+const Unsplash = require('unsplash-js').default;
+const fetch = require('isomorphic-fetch');
+const toJson = require('unsplash-js').toJson;
+
+const unsplash = new Unsplash({
+  applicationId: "55e7eb429ab15a7a24bda1e98d228776825d4ee84df68d7205b8091c6bfd82b7",
+  secret: "2e8f9e42170df6da70693936c6ef64dc940ddbe5c62be50fcc9aa44c8e5f5ca8",
+  callbackUrl: ''
+});
 
 if (process.argv.length < 3) {
   console.log('Usage:');
@@ -32,13 +40,13 @@ function begin(arr){
     if (part === 'NN' && searches[index].length < 3) {
       searches[index].push(arr[0]);
     }
-    console.log(part);
     // if ((part === 'VB' || part === 'IN' || part === 'CC') && words[index].length > 4){
     if (
       ( part === '.' )
       || ( part === '!' )
       || ( part === ':' )
       || (( part === ',' ) && words[index].length > 8)
+      || i === tagged.length-1
     ){
       if (i < tagged.length-1) {
         words.push([]);
@@ -46,8 +54,9 @@ function begin(arr){
       }
 
       // If there's no nouns in the slide, just use all the text?
-      if (!searches[index].length){
-        searches[index].push(smoosh(words[index]));
+      if (!searches[index].length || searches[index][0].length < 3){
+        const text = smoosh(words[index]);
+        searches[index].push(text.length > 3 ? text : 'blah');
       }
       index++;
     }
@@ -90,6 +99,7 @@ function begin(arr){
 
 function smoosh(arr){
   let str = arr.join(' ');
+  str = str.split(' ,').join(',');
   str = str.split(' .').join('.');
   str = str.split(' !').join('!');
   str = str.split(' -').join('-');
@@ -110,8 +120,8 @@ async function makeSlideshow(hash, images){
     audioBitrate: '128k',
     audioChannels: 2,
     subtitleStyle: {
-      Fontsize: '50',
-      PrimaryColour: '16777215'
+      Fontsize: '40',
+      //PrimaryColour: '16777215'
     },
     format: 'mp4',
     pixelFormat: 'yuv420p'
@@ -129,12 +139,14 @@ async function makeSlideshow(hash, images){
 // TODO: caching
 async function getImage(term, i){
   return new Promise(resolve => {
-    search(term.join(' ') + ' stock photo', (err, images) => {
-      request.get(images[0].url)
-        .then(d => {
-          resolve({i, buffer: d.body});
-        });
-    });
+    unsplash.search.photos(term.join(' '), 1)
+      .then(toJson)
+      .then(d => {
+        request.get(d.results[0].urls.regular)
+          .then(d => {
+            resolve({i, buffer: d.body});
+          });
+      });
   });
 }
 
