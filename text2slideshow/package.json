@@ -5,6 +5,8 @@
   "license": "MIT",
   "dependencies": {
     "free-google-image-search": "^1.0.0",
+    "g-i-s": "^2.1.2",
+    "google-images": "^2.1.0",
     "jsonata": "^1.5.4",
     "mkdirp": "^0.5.1",
     "pos": "^0.4.2",

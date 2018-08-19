@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const mkdirp = require('mkdirp');
 const videoshow = require('videoshow')
 const request = require('superagent');
-const sieve = require('sievejs');
+const search = require('g-i-s');
 
 if (process.argv.length < 3) {
   console.log('Usage:');
@@ -67,12 +67,12 @@ function begin(arr){
         const image = `./images/${hash}/${result.i}.jpg`;
         images.push({
           path: image,
-          caption: words[result.i].join(' ') 
+          caption: slides[result.i]
         });
 
         sharp(result.buffer)
           .resize(640, 480)
-          .max()
+          .min()
           .crop()
           .toFormat('jpeg')
           .toFile(image)
@@ -88,10 +88,10 @@ function begin(arr){
 
 function smoosh(arr){
   let str = arr.join(' ');
-  str = str.split(' .').join('');
-  str = str.split(' !').join('');
-  str = str.split(' -').join('');
-  str = str.split(' \' ').join('');
+  str = str.split(' .').join('.');
+  str = str.split(' !').join('!');
+  str = str.split(' -').join('-');
+  str = str.split(' \' ').join('\'');
   return str;
 }
 
@@ -127,38 +127,11 @@ async function makeSlideshow(hash, images){
 // TODO: caching
 async function getImage(term, i){
   return new Promise(resolve => {
-    sieve({
-      url: 'https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch={{term}}&srnamespace=6&srinfo=totalhits%7Csuggestion&srlimit=10&generator=images&titles=Wikipedia%3APublic_domain&gimlimit=1',
-      data: { term: encodeURIComponent(term)},
-      selector: '.title'
-    }, result => {
-      // Find the first result with 'jpg' in the title
-      const jpeg = result.find(d => d.includes('.jpg') || d.includes('.jpeg'));
-      if (!jpeg) {
-        request.get('https://i.kym-cdn.com/entries/icons/original/000/018/489/nick-young-confused-face-300x256-nqlyaa.jpg')
-          .then(d => {
-            resolve({i, buffer: d.body});
-          });
-        return;
-      }
-      const title = encodeURIComponent(jpeg);
-      sieve({
-        url: 'https://commons.wikimedia.org/w/api.php?action=query&titles={{title}}&prop=imageinfo&iiprop=url&format=json',
-        data: {title},
-        selector: '.url'
-      }, result => {
-        if (result[0]){
-          request.get(result[0])
-            .then(d => {
-              resolve({i, buffer: d.body});
-            });
-        } else {
-          request.get('https://i.kym-cdn.com/entries/icons/original/000/018/489/nick-young-confused-face-300x256-nqlyaa.jpg')
-            .then(d => {
-              resolve({i, buffer: d.body});
-            });
-        }
-      });
+    search(term.join(' ') + ' stock photo', (err, images) => {
+      request.get(images[0].url)
+        .then(d => {
+          resolve({i, buffer: d.body});
+        });
     });
   });
 }
