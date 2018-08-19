@@ -5,7 +5,15 @@ const crypto = require('crypto');
 const mkdirp = require('mkdirp');
 const videoshow = require('videoshow')
 const request = require('superagent');
-const sieve = require('sievejs');
+const Unsplash = require('unsplash-js').default;
+const fetch = require('isomorphic-fetch');
+const toJson = require('unsplash-js').toJson;
+
+const unsplash = new Unsplash({
+  applicationId: "55e7eb429ab15a7a24bda1e98d228776825d4ee84df68d7205b8091c6bfd82b7",
+  secret: "2e8f9e42170df6da70693936c6ef64dc940ddbe5c62be50fcc9aa44c8e5f5ca8",
+  callbackUrl: ''
+});
 
 if (process.argv.length < 3) {
   console.log('Usage:');
@@ -34,9 +42,11 @@ function begin(arr){
     }
     // if ((part === 'VB' || part === 'IN' || part === 'CC') && words[index].length > 4){
     if (
-      ((part === 'NN' || part === 'IN' || part === 'CC') && words[index].length > 6)
+      ( part === '.' )
       || ( part === '!' )
-      || (( part === '.' ) && words[index].length > 4)
+      || ( part === ':' )
+      || (( part === ',' ) && words[index].length > 8)
+      || i === tagged.length-1
     ){
       if (i < tagged.length-1) {
         words.push([]);
@@ -44,8 +54,9 @@ function begin(arr){
       }
 
       // If there's no nouns in the slide, just use all the text?
-      if (!searches[index].length){
-        searches[index].push(smoosh(words[index]));
+      if (!searches[index].length || searches[index][0].length < 3){
+        const text = smoosh(words[index]);
+        searches[index].push(text.length > 3 ? text : 'blah');
       }
       index++;
     }
@@ -67,12 +78,12 @@ function begin(arr){
         const image = `./images/${hash}/${result.i}.jpg`;
         images.push({
           path: image,
-          caption: words[result.i].join(' ') 
+          caption: slides[result.i]
         });
 
         sharp(result.buffer)
           .resize(640, 480)
-          .max()
+          .min()
           .crop()
           .toFormat('jpeg')
           .toFile(image)
@@ -88,10 +99,11 @@ function begin(arr){
 
 function smoosh(arr){
   let str = arr.join(' ');
-  str = str.split(' .').join('');
-  str = str.split(' !').join('');
-  str = str.split(' -').join('');
-  str = str.split(' \' ').join('');
+  str = str.split(' ,').join(',');
+  str = str.split(' .').join('.');
+  str = str.split(' !').join('!');
+  str = str.split(' -').join('-');
+  str = str.split(' \' ').join('\'');
   return str;
 }
 
@@ -108,8 +120,8 @@ async function makeSlideshow(hash, images){
     audioBitrate: '128k',
     audioChannels: 2,
     subtitleStyle: {
-      Fontsize: '50',
-      PrimaryColour: '16777215'
+      Fontsize: '40',
+      //PrimaryColour: '16777215'
     },
     format: 'mp4',
     pixelFormat: 'yuv420p'
@@ -127,39 +139,14 @@ async function makeSlideshow(hash, images){
 // TODO: caching
 async function getImage(term, i){
   return new Promise(resolve => {
-    sieve({
-      url: 'https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch={{term}}&srnamespace=6&srinfo=totalhits%7Csuggestion&srlimit=10&generator=images&titles=Wikipedia%3APublic_domain&gimlimit=1',
-      data: { term: encodeURIComponent(term)},
-      selector: '.title'
-    }, result => {
-      // Find the first result with 'jpg' in the title
-      const jpeg = result.find(d => d.includes('.jpg') || d.includes('.jpeg'));
-      if (!jpeg) {
-        request.get('https://i.kym-cdn.com/entries/icons/original/000/018/489/nick-young-confused-face-300x256-nqlyaa.jpg')
+    unsplash.search.photos(term.join(' '), 1)
+      .then(toJson)
+      .then(d => {
+        request.get(d.results[0].urls.regular)
           .then(d => {
             resolve({i, buffer: d.body});
           });
-        return;
-      }
-      const title = encodeURIComponent(jpeg);
-      sieve({
-        url: 'https://commons.wikimedia.org/w/api.php?action=query&titles={{title}}&prop=imageinfo&iiprop=url&format=json',
-        data: {title},
-        selector: '.url'
-      }, result => {
-        if (result[0]){
-          request.get(result[0])
-            .then(d => {
-              resolve({i, buffer: d.body});
-            });
-        } else {
-          request.get('https://i.kym-cdn.com/entries/icons/original/000/018/489/nick-young-confused-face-300x256-nqlyaa.jpg')
-            .then(d => {
-              resolve({i, buffer: d.body});
-            });
-        }
       });
-    });
   });
 }
 
