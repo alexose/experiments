@@ -9,11 +9,15 @@ const Unsplash = require('unsplash-js').default;
 const fetch = require('isomorphic-fetch');
 const toJson = require('unsplash-js').toJson;
 
-const unsplash = new Unsplash({
-  applicationId: "55e7eb429ab15a7a24bda1e98d228776825d4ee84df68d7205b8091c6bfd82b7",
-  secret: "2e8f9e42170df6da70693936c6ef64dc940ddbe5c62be50fcc9aa44c8e5f5ca8",
-  callbackUrl: ''
-});
+var unsplash;
+try {
+  const config = require('./config');
+  unsplash = new Unsplash({ ...config });
+} catch(e) {
+  console.log('Could not find config.');
+  console.log('cp config.js.example config.js');
+  process.exit(1);
+}
 
 if (process.argv.length < 3) {
   console.log('Usage:');
