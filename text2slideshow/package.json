@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "compendium-js": "^0.0.31",
     "free-google-image-search": "^1.0.0",
     "g-i-s": "^2.1.2",
     "google-images": "^2.1.0",

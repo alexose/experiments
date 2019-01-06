@@ -1,0 +1,16 @@
+{
+  "name": "latency_monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fluent-logger": "^2.4.0",
+    "fluent-logger-node": "0.0.3",
+    "superagent": "^3.5.2"
+  }
+}

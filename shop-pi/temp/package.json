@@ -1,0 +1,20 @@
+{
+  "name": "temp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ds18x20": "^0.2.0",
+    "fluent-logger": "^2.4.0",
+    "fluent-logger-node": "0.0.3",
+    "mqtt": "^2.9.3",
+    "node-dweetio": "0.0.11",
+    "prom-client": "^10.0.0",
+    "superagent": "^3.5.2"
+  }
+}

@@ -42,7 +42,7 @@ function begin(arr){
     const part = arr[1].substr(0,2);
     words[index].push(arr[0]);
     if (part === 'NN' && searches[index].length < 3) {
-      searches[index].push(arr[0]);
+      searches[index].push(strip(arr[0]));
     }
     // if ((part === 'VB' || part === 'IN' || part === 'CC') && words[index].length > 4){
     if (
@@ -59,7 +59,7 @@ function begin(arr){
 
       // If there's no nouns in the slide, just use all the text?
       if (!searches[index].length || searches[index][0].length < 3){
-        const text = smoosh(words[index]);
+        const text = strip(words[index].join(' '));
         searches[index].push(text.length > 3 ? text : 'blah');
       }
       index++;
@@ -109,6 +109,10 @@ function smoosh(arr){
   str = str.split(' -').join('-');
   str = str.split(' \' ').join('\'');
   return str;
+}
+
+function strip(str){
+  return str.replace(/[^\w\s]/gi, '')
 }
 
 async function makeSlideshow(hash, images){

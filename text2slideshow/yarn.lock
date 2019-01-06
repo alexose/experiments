@@ -181,6 +181,10 @@ combined-stream@1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
+compendium-js@^0.0.31:
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/compendium-js/-/compendium-js-0.0.31.tgz#088dc21dbc8707679191cd489afc6ca407fd8ed5"
+
 component-emitter@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.2.1.tgz#137918d6d78283f7df7a6b7c5a63e140e69425e6"
