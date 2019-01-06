@@ -59,7 +59,7 @@ function begin(arr){
 
       // If there's no nouns in the slide, just use all the text?
       if (!searches[index].length || searches[index][0].length < 3){
-        const text = strip(words[index].join(' '));
+        const text = smoosh(words[index]);
         searches[index].push(text.length > 3 ? text : 'blah');
       }
       index++;
