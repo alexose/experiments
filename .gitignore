@@ -3,3 +3,4 @@ node_modules
 text2slideshow/videos
 text2slideshow/images
 research/client/_site
+.serverless

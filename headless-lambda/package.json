@@ -1,0 +1,15 @@
+{
+  "name": "headless-lambda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^1.11.0",
+    "serverless": "^1.35.1"
+  },
+  "scripts": {
+    "deploy": "serverless deploy",
+    "update": "serverless deploy function -f scraper",
+    "invoke": "serverless invoke -f scraper -l"
+  }
+}
