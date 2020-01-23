@@ -27,6 +27,10 @@ body.resized img.bar{
     display: none;
 }
 
+.frame img {
+    cursor: pointer;
+}
+
 #frame-0{
     display: block;
 }

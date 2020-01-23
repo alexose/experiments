@@ -31,10 +31,12 @@ $(document).ready(function(){
         // Append images
         var frame = $('#frame-0').empty();
         for (var h=0; h<=96; h+=48){
-
             frame.append(
                 $('<img />')
                     .attr('src', src.replace('hour=0', 'hour=' + h))
+                    .click(function() {
+                       $('body').toggleClass('resized');
+                    })
             );
         }
 
@@ -98,9 +100,4 @@ $(document).ready(function(){
             }
         });
     }
-
-    // Footer functionality
-    $('body').click(function(){
-        $('body').toggleClass('resized');
-    });
 });
