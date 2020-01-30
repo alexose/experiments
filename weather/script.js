@@ -75,7 +75,7 @@ $(document).ready(function(){
         var string = btoa(JSON.stringify(json));
 
         $.ajax({
-            url : "http://sieve.alexose.com?callback=?",
+            url : "https://sieve.alexose.com?callback=?",
             data : { json : string },
             dataType : "jsonp",
             success: function(result){
